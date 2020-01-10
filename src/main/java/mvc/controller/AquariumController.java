@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mvc.entity.Aquarium;
-import mvc.service.AquariumService;
+import mvc.repo.AquariumRepo;
 
 @RestController
 @EnableAutoConfiguration
 public class AquariumController {
 
 	@Autowired
-	private AquariumService aquariumService;
+	private AquariumRepo aquariumRepo;
 
 	@GetMapping(value = "/getAll")
 	public List<Aquarium> getAll() {
-		return aquariumService.findAll();
+		return aquariumRepo.findAll();
 	}
 
 }
