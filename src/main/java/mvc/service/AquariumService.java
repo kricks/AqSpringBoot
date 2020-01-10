@@ -6,6 +6,6 @@ import mvc.entity.Aquarium;
 
 public interface AquariumService {
 
-	List<Aquarium> findAll();
+	List<Aquarium> getAll();
 
 }

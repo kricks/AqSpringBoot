@@ -15,7 +15,7 @@ public class AquariumServiceImpl implements AquariumService {
 	private AquariumRepo aquariumRepo;
 
 	@Override
-	public List<Aquarium> findAll() {
+	public List<Aquarium> getAll() {
 		return (List<Aquarium>) aquariumRepo.findAll();
 	}
 
