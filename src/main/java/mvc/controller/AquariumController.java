@@ -1,7 +1,6 @@
 package mvc.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -32,7 +31,7 @@ public class AquariumController {
 	// get by id
 
 	@GetMapping(value = "/getAquariumById/{aquariumId}")
-	public Optional<Aquarium> getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
+	public Aquarium getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
 		return aquariumService.getAquariumById(aquariumId);
 	}
 
@@ -44,13 +43,19 @@ public class AquariumController {
 
 	// update
 	@PutMapping(value = "/update/{aquariumId}")
-	public Aquarium updateAquarium(@PathVariable("aquariumId") Integer aquariumId) {
-		return aquariumService.updateAquarium(aquariumId);
+	public Aquarium updateAquarium(@PathVariable("aquariumId") Integer aquariumId, @RequestBody Aquarium aquarium) {
+		Aquarium update = aquariumService.getAquariumById(aquariumId);
+		update.setName(aquarium.getName());
+		update.setType(aquarium.getType());
+		update.setGallon(aquarium.getGallon());
+		update.setNotes(aquarium.getNotes());
+		update.setDate(aquarium.getDate());
+		return aquariumService.updateAquarium(update);
 	}
 
 	// delete
 	@DeleteMapping(value = "/delete/{aquariumId}")
-	public Aquarium deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
+	public boolean deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
 		return aquariumService.deleteAquariumById(aquariumId);
 	}
 }
