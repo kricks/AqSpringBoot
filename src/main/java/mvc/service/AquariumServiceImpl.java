@@ -33,11 +33,6 @@ public class AquariumServiceImpl implements AquariumService {
 	}
 
 	@Override
-	public Aquarium updateAquarium(Aquarium aquarium) {
-		return aquariumRepo.save(aquarium);
-	}
-
-	@Override
 	public boolean deleteAquariumById(Integer aquariumId) {
 		if (aquariumId != null) {
 			aquariumRepo.deleteById(aquariumId);

@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mvc.entity.Aquarium;
 import mvc.service.AquariumService;
 
+@RequestMapping(value = "/aquarium")
 @RestController
 @EnableAutoConfiguration
 public class AquariumController {
@@ -23,14 +25,14 @@ public class AquariumController {
 	private AquariumService aquariumService;
 
 	// get all
-	@GetMapping(value = "/getAllAquariums")
+	@GetMapping(value = "/all")
 	public List<Aquarium> getAllAquariums() {
 		return aquariumService.getAll();
 	}
 
 	// get by id
 
-	@GetMapping(value = "/getAquariumById/{aquariumId}")
+	@GetMapping(value = "/{aquariumId}")
 	public Aquarium getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
 		return aquariumService.getAquariumById(aquariumId);
 	}
@@ -50,7 +52,7 @@ public class AquariumController {
 		update.setGallon(aquarium.getGallon());
 		update.setNotes(aquarium.getNotes());
 		update.setDate(aquarium.getDate());
-		return aquariumService.updateAquarium(update);
+		return aquariumService.saveAquarium(update);
 	}
 
 	// delete
