@@ -34,14 +34,12 @@ public class AquariumServiceImpl implements AquariumService {
 
 	@Override
 	public boolean deleteAquariumById(Integer aquariumId) {
-		if (aquariumId != null) {
-			aquariumRepo.deleteById(aquariumId);
-			logger.info("Aquarium Successfully Deleted");
-			return true;
-		} else {
+		if (aquariumId == null) {
 			logger.error("Delete aquarium failed");
 			return false;
 		}
+		aquariumRepo.deleteById(aquariumId);
+		logger.info("Aquarium Successfully Deleted");
+		return true;
 	}
-
 }

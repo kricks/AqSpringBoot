@@ -41,13 +41,12 @@ public class LivestockServiceImpl implements LivestockService {
 
 	@Override
 	public boolean deleteLivestockById(Integer livestockId) {
-		if (livestockId != null) {
-			livestockRepo.deleteById(livestockId);
-			logger.info("Livestock Delete successful");
-			return true;
-		} else {
+		if (livestockId == null) {
 			logger.error("Delete livestock failed");
 			return false;
 		}
+		livestockRepo.deleteById(livestockId);
+		logger.info("Livestock Delete successful");
+		return true;
 	}
 }
