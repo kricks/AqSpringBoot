@@ -8,12 +8,10 @@ public interface AquariumService {
 
 	List<AquariumImpl> getAll();
 
-//	List<AquariumView> convertViewToImpl();
-
 	AquariumImpl getAquariumById(Integer aquariumId);
 
 	AquariumImpl saveAquarium(AquariumImpl aquarium);
 
-	boolean deleteAquariumById(Integer aquariumId);
+	AquariumImpl deleteAquariumById(Integer aquariumId);
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.beans.BeanUtils;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -34,6 +36,14 @@ public class AquariumImpl implements Aquarium {
 	@Column(name = "DATE", nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "CST")
 	private Date date;
+
+	public AquariumImpl() {
+
+	}
+
+	public AquariumImpl(AquariumView aquariumView) {
+		BeanUtils.copyProperties(aquariumView, this, Aquarium.class);
+	}
 
 	public Integer getAquariumId() {
 		return aquariumId;

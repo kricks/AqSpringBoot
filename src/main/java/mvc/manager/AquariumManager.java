@@ -2,16 +2,16 @@ package mvc.manager;
 
 import java.util.List;
 
-import mvc.entity.AquariumImpl;
+import mvc.entity.AquariumView;
 
 public interface AquariumManager {
 
-	List<AquariumImpl> getAll();
+	List<AquariumView> getAll();
 
-	AquariumImpl getAquariumById(Integer aquariumId);
+	AquariumView getAquariumById(Integer aquariumId);
 
-	AquariumImpl saveAquarium(AquariumImpl aquarium);
+	AquariumView saveAquarium(AquariumView aquarium);
 
-	boolean deleteAquariumById(Integer aquariumId);
+	AquariumView deleteAquariumById(Integer aquariumId);
 
 }

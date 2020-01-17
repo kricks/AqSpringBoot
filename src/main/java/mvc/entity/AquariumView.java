@@ -16,8 +16,12 @@ public class AquariumView implements Aquarium {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "CST")
 	private Date date;
 
-	public AquariumView(AquariumImpl aquarium) {
-		BeanUtils.copyProperties(aquarium, this, AquariumImpl.class);
+	public AquariumView() {
+
+	}
+
+	public AquariumView(AquariumImpl aquariumImpl) {
+		BeanUtils.copyProperties(aquariumImpl, this, Aquarium.class);
 	}
 
 	public Integer getAquariumId() {
@@ -66,6 +70,12 @@ public class AquariumView implements Aquarium {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "AquariumView [aquariumId=" + aquariumId + ", name=" + name + ", type=" + type + ", gallon=" + gallon
+				+ ", notes=" + notes + ", date=" + date + "]";
 	}
 
 }

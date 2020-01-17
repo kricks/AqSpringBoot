@@ -1,6 +1,5 @@
 package mvc.controller;
 
-import java.awt.Image;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,58 +15,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mvc.entity.AquariumImpl;
-import mvc.service.AquariumService;
+import mvc.entity.AquariumView;
+import mvc.manager.AquariumManager;
 
-/**
- * 
- *
- * @param url  an absolute URL giving the base location of the image
- * @param name the location of the image, relative to the url argument
- * @return the image at the specified URL
- * @see Image
- */
 @RequestMapping(value = "/aquarium")
 @RestController
 @EnableAutoConfiguration
 public class AquariumController {
 
 	@Autowired
-	private AquariumService aquariumService;
+	private AquariumManager aquariumManager;
 
 	// get all
 	@GetMapping(value = "/all")
-	public ResponseEntity<List<AquariumImpl>> getAllAquariums() {
-		List<AquariumImpl> aquariums = aquariumService.getAll();
+	public ResponseEntity<List<AquariumView>> getAllAquariums() {
+		List<AquariumView> aquariums = aquariumManager.getAll();
 		if (aquariums.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(aquariums, HttpStatus.OK);
 	}
 
-//	public List<Aquarium> getAllAquariums() {
-//		return aquariumService.getAll();
-//	}
-
 	// get by id
 
 	@GetMapping(value = "/{aquariumId}")
-	public AquariumImpl getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
-		return aquariumService.getAquariumById(aquariumId);
+	public AquariumView getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
+		return aquariumManager.getAquariumById(aquariumId);
 	}
 
 	// create
 	@PostMapping(value = "/create")
-	public AquariumImpl createAquarium(@RequestBody AquariumImpl aquarium) {
-		return aquariumService.saveAquarium(aquarium);
+	public AquariumView createAquarium(@RequestBody AquariumView aquarium) {
+		return aquariumManager.saveAquarium(aquarium);
 	}
 
 	// TODO: figure out how to update better
 	@PutMapping(value = "/update/{aquariumId}")
-	public AquariumImpl updateAquarium(@PathVariable("aquariumId") Integer aquariumId,
-			@RequestBody AquariumImpl aquarium) {
+	public AquariumView updateAquarium(@PathVariable("aquariumId") Integer aquariumId,
+			@RequestBody AquariumView aquarium) {
 
-		AquariumImpl update = aquariumService.getAquariumById(aquariumId);
+		AquariumView update = aquariumManager.getAquariumById(aquariumId);
 		// if it finds the id it triggers the merge. merge then. jparepository doesnt
 		// have merge hibernate does have merge
 		update.setName(aquarium.getName());
@@ -75,12 +62,12 @@ public class AquariumController {
 		update.setGallon(aquarium.getGallon());
 		update.setNotes(aquarium.getNotes());
 		update.setDate(aquarium.getDate());
-		return aquariumService.saveAquarium(update);
+		return aquariumManager.saveAquarium(update);
 	}
 
 	// delete
 	@DeleteMapping(value = "/delete/{aquariumId}")
-	public boolean deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
-		return aquariumService.deleteAquariumById(aquariumId);
+	public AquariumView deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
+		return aquariumManager.deleteAquariumById(aquariumId);
 	}
 }

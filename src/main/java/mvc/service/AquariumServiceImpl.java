@@ -22,29 +22,10 @@ public class AquariumServiceImpl implements AquariumService {
 		return aquariumRepo.findAll();
 	}
 
-//	@Override
-//	public List<AquariumView> convertViewToImpl() {
-//		List<AquariumView> view = new ArrayList<>();
-//		for (AquariumImpl aq : aquariumRepo.findAll()) {
-//			AquariumView aquariumView = new AquariumView(aq);
-//			view.add(aquariumView);
-//		}
-//		logger.debug(view);
-//		return view;
-//	}
-
-//	public List<AquariumView> convertViewToImpl() {
-//		List<AquariumView> view = new ArrayList<>();
-//		List<AquariumImpl> aqImpl = new ArrayList<>();
-//		for (AquariumImpl aq : aquariumRepo.findAll()) {
-//			aqImpl.add(view);
-//		}
-//		return view;
-//	}
-
 	@Override
 	public AquariumImpl getAquariumById(Integer aquariumId) {
 		return aquariumRepo.findById(aquariumId).get();
+
 	}
 
 	@Override
@@ -53,13 +34,12 @@ public class AquariumServiceImpl implements AquariumService {
 	}
 
 	@Override
-	public boolean deleteAquariumById(Integer aquariumId) {
+	public AquariumImpl deleteAquariumById(Integer aquariumId) {
 		if (aquariumId == null) {
 			logger.error("Delete aquarium failed");
-			return false;
 		}
 		aquariumRepo.deleteById(aquariumId);
 		logger.info("Aquarium Successfully Deleted");
-		return true;
+		return null;
 	}
 }
