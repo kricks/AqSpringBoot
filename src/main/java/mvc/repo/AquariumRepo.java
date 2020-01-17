@@ -3,9 +3,9 @@ package mvc.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import mvc.entity.Aquarium;
+import mvc.entity.AquariumImpl;
 
 @Repository
-public interface AquariumRepo extends JpaRepository<Aquarium, Integer> {
+public interface AquariumRepo extends JpaRepository<AquariumImpl, Integer> {
 
 }

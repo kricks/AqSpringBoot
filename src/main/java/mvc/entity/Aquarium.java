@@ -2,85 +2,29 @@ package mvc.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public interface Aquarium {
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+	public Integer getAquariumId();
 
-@Entity
-@Table(name = "AQUARIUM")
-public class Aquarium {
+	public void setAquariumId(Integer aquariumId);
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer aquariumId;
+	String getName();
 
-	@Column(name = "NAME", nullable = false)
-	private String name;
+	void setName(String name);
 
-	@Column(name = "TYPE", nullable = true)
-	private String type;
+	String getType();
 
-	@Column(name = "GALLON", nullable = true)
-	private Integer gallon;
+	void setType(String type);
 
-	@Column(name = "NOTES", nullable = true)
-	private String notes;
+	Integer getGallon();
 
-	@Column(name = "DATE", nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "CST")
-	private Date date;
+	void setGallon(Integer gallon);
 
-	public Integer getAquariumId() {
-		return aquariumId;
-	}
+	String getNotes();
 
-	public void setAquariumId(Integer aquariumId) {
-		this.aquariumId = aquariumId;
-	}
+	void setNotes(String notes);
 
-	public String getName() {
-		return name;
-	}
+	Date getDate();
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Integer getGallon() {
-		return gallon;
-	}
-
-	public void setGallon(Integer gallon) {
-		this.gallon = gallon;
-	}
-
-	public String getNotes() {
-		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
+	void setDate(Date date);
 }

@@ -1,14 +1,12 @@
-package mvc.service;
+package mvc.manager;
 
 import java.util.List;
 
 import mvc.entity.AquariumImpl;
 
-public interface AquariumService {
+public interface AquariumManager {
 
 	List<AquariumImpl> getAll();
-
-//	List<AquariumView> convertViewToImpl();
 
 	AquariumImpl getAquariumById(Integer aquariumId);
 

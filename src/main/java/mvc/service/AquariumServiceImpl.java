@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mvc.entity.Aquarium;
+import mvc.entity.AquariumImpl;
 import mvc.repo.AquariumRepo;
 
 @Service
@@ -18,17 +18,37 @@ public class AquariumServiceImpl implements AquariumService {
 	private AquariumRepo aquariumRepo;
 
 	@Override
-	public List<Aquarium> getAll() {
-		return (List<Aquarium>) aquariumRepo.findAll();
+	public List<AquariumImpl> getAll() {
+		return aquariumRepo.findAll();
 	}
 
+//	@Override
+//	public List<AquariumView> convertViewToImpl() {
+//		List<AquariumView> view = new ArrayList<>();
+//		for (AquariumImpl aq : aquariumRepo.findAll()) {
+//			AquariumView aquariumView = new AquariumView(aq);
+//			view.add(aquariumView);
+//		}
+//		logger.debug(view);
+//		return view;
+//	}
+
+//	public List<AquariumView> convertViewToImpl() {
+//		List<AquariumView> view = new ArrayList<>();
+//		List<AquariumImpl> aqImpl = new ArrayList<>();
+//		for (AquariumImpl aq : aquariumRepo.findAll()) {
+//			aqImpl.add(view);
+//		}
+//		return view;
+//	}
+
 	@Override
-	public Aquarium getAquariumById(Integer aquariumId) {
+	public AquariumImpl getAquariumById(Integer aquariumId) {
 		return aquariumRepo.findById(aquariumId).get();
 	}
 
 	@Override
-	public Aquarium saveAquarium(Aquarium aquarium) {
+	public AquariumImpl saveAquarium(AquariumImpl aquarium) {
 		return aquariumRepo.save(aquarium);
 	}
 

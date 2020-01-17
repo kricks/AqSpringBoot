@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mvc.entity.Aquarium;
+import mvc.entity.AquariumImpl;
 import mvc.service.AquariumService;
 
 /**
@@ -37,8 +37,8 @@ public class AquariumController {
 
 	// get all
 	@GetMapping(value = "/all")
-	public ResponseEntity<List<Aquarium>> getAllAquariums() {
-		List<Aquarium> aquariums = aquariumService.getAll();
+	public ResponseEntity<List<AquariumImpl>> getAllAquariums() {
+		List<AquariumImpl> aquariums = aquariumService.getAll();
 		if (aquariums.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -52,21 +52,22 @@ public class AquariumController {
 	// get by id
 
 	@GetMapping(value = "/{aquariumId}")
-	public Aquarium getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
+	public AquariumImpl getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
 		return aquariumService.getAquariumById(aquariumId);
 	}
 
 	// create
 	@PostMapping(value = "/create")
-	public Aquarium createAquarium(@RequestBody Aquarium aquarium) {
+	public AquariumImpl createAquarium(@RequestBody AquariumImpl aquarium) {
 		return aquariumService.saveAquarium(aquarium);
 	}
 
 	// TODO: figure out how to update better
 	@PutMapping(value = "/update/{aquariumId}")
-	public Aquarium updateAquarium(@PathVariable("aquariumId") Integer aquariumId, @RequestBody Aquarium aquarium) {
+	public AquariumImpl updateAquarium(@PathVariable("aquariumId") Integer aquariumId,
+			@RequestBody AquariumImpl aquarium) {
 
-		Aquarium update = aquariumService.getAquariumById(aquariumId);
+		AquariumImpl update = aquariumService.getAquariumById(aquariumId);
 		// if it finds the id it triggers the merge. merge then. jparepository doesnt
 		// have merge hibernate does have merge
 		update.setName(aquarium.getName());
