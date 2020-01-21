@@ -1,48 +1,27 @@
-package mvc.entity;
+package mvc.entity.aquarium;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(name = "AQUARIUM")
-public class AquariumImpl implements Aquarium {
+public class AquariumView implements Aquarium {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer aquariumId;
-
-	@Column(name = "NAME", nullable = false)
 	private String name;
-
-	@Column(name = "TYPE", nullable = true)
 	private String type;
-
-	@Column(name = "GALLON", nullable = true)
 	private Integer gallon;
-
-	@Column(name = "NOTES", nullable = true)
 	private String notes;
-
-	@Column(name = "DATE", nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "CST")
 	private Date date;
 
-	public AquariumImpl() {
-
+	public AquariumView() {
+		// default constructor
 	}
 
-	public AquariumImpl(AquariumView aquariumView) {
-		BeanUtils.copyProperties(aquariumView, this, Aquarium.class);
+	public AquariumView(AquariumImpl aquariumImpl) {
+		BeanUtils.copyProperties(aquariumImpl, this, Aquarium.class);
 	}
 
 	public Integer getAquariumId() {
@@ -91,6 +70,12 @@ public class AquariumImpl implements Aquarium {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "AquariumView [aquariumId=" + aquariumId + ", name=" + name + ", type=" + type + ", gallon=" + gallon
+				+ ", notes=" + notes + ", date=" + date + "]";
 	}
 
 }

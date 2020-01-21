@@ -1,4 +1,4 @@
-package mvc.service;
+package mvc.service.aquarium;
 
 import java.util.List;
 
@@ -6,13 +6,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mvc.entity.AquariumImpl;
+import mvc.entity.aquarium.AquariumImpl;
 import mvc.repo.AquariumRepo;
 
 @Service
 public class AquariumServiceImpl implements AquariumService {
 
-	final static Logger logger = Logger.getLogger(AquariumServiceImpl.class);
+	static Logger logger = Logger.getLogger(AquariumServiceImpl.class);
 
 	@Autowired
 	private AquariumRepo aquariumRepo;
@@ -34,12 +34,13 @@ public class AquariumServiceImpl implements AquariumService {
 	}
 
 	@Override
-	public AquariumImpl deleteAquariumById(Integer aquariumId) {
+	public boolean deleteAquariumById(Integer aquariumId) {
 		if (aquariumId == null) {
 			logger.error("Delete aquarium failed");
+			return false;
 		}
 		aquariumRepo.deleteById(aquariumId);
 		logger.info("Aquarium Successfully Deleted");
-		return null;
+		return true;
 	}
 }

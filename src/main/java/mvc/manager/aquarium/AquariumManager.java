@@ -1,8 +1,8 @@
-package mvc.manager;
+package mvc.manager.aquarium;
 
 import java.util.List;
 
-import mvc.entity.AquariumView;
+import mvc.entity.aquarium.AquariumView;
 
 public interface AquariumManager {
 
@@ -12,6 +12,6 @@ public interface AquariumManager {
 
 	AquariumView saveAquarium(AquariumView aquarium);
 
-	AquariumView deleteAquariumById(Integer aquariumId);
+	boolean deleteAquariumById(Integer aquariumId);
 
 }

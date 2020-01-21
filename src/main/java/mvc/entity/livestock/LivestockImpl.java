@@ -1,4 +1,4 @@
-package mvc.entity;
+package mvc.entity.livestock;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,9 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.beans.BeanUtils;
+
 @Entity
 @Table(name = "LIVESTOCK")
-public class Livestock {
+public class LivestockImpl implements Livestock {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +32,14 @@ public class Livestock {
 
 	@Column(name = "fk_aquarium_id", nullable = false)
 	private Integer fkAquariumId;
+
+	public LivestockImpl() {
+		// default constructor
+	}
+
+	public LivestockImpl(LivestockView livestockView) {
+		BeanUtils.copyProperties(livestockView, this, Livestock.class);
+	}
 
 	public Integer getLivestockId() {
 		return livestockId;

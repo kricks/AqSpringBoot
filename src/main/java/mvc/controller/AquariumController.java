@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mvc.entity.AquariumView;
-import mvc.manager.AquariumManager;
+import mvc.entity.aquarium.AquariumView;
+import mvc.manager.aquarium.AquariumManager;
 
 @RequestMapping(value = "/aquarium")
 @RestController
@@ -26,7 +26,6 @@ public class AquariumController {
 	@Autowired
 	private AquariumManager aquariumManager;
 
-	// get all
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<AquariumView>> getAllAquariums() {
 		List<AquariumView> aquariums = aquariumManager.getAll();
@@ -36,27 +35,21 @@ public class AquariumController {
 		return new ResponseEntity<>(aquariums, HttpStatus.OK);
 	}
 
-	// get by id
-
 	@GetMapping(value = "/{aquariumId}")
 	public AquariumView getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
 		return aquariumManager.getAquariumById(aquariumId);
 	}
 
-	// create
 	@PostMapping(value = "/create")
 	public AquariumView createAquarium(@RequestBody AquariumView aquarium) {
 		return aquariumManager.saveAquarium(aquarium);
 	}
 
-	// TODO: figure out how to update better
 	@PutMapping(value = "/update/{aquariumId}")
 	public AquariumView updateAquarium(@PathVariable("aquariumId") Integer aquariumId,
 			@RequestBody AquariumView aquarium) {
 
 		AquariumView update = aquariumManager.getAquariumById(aquariumId);
-		// if it finds the id it triggers the merge. merge then. jparepository doesnt
-		// have merge hibernate does have merge
 		update.setName(aquarium.getName());
 		update.setType(aquarium.getType());
 		update.setGallon(aquarium.getGallon());
@@ -65,9 +58,8 @@ public class AquariumController {
 		return aquariumManager.saveAquarium(update);
 	}
 
-	// delete
 	@DeleteMapping(value = "/delete/{aquariumId}")
-	public AquariumView deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
+	public boolean deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
 		return aquariumManager.deleteAquariumById(aquariumId);
 	}
 }

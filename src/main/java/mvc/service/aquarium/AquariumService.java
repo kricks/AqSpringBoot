@@ -1,8 +1,8 @@
-package mvc.service;
+package mvc.service.aquarium;
 
 import java.util.List;
 
-import mvc.entity.AquariumImpl;
+import mvc.entity.aquarium.AquariumImpl;
 
 public interface AquariumService {
 
@@ -12,6 +12,6 @@ public interface AquariumService {
 
 	AquariumImpl saveAquarium(AquariumImpl aquarium);
 
-	AquariumImpl deleteAquariumById(Integer aquariumId);
+	boolean deleteAquariumById(Integer aquariumId);
 
 }

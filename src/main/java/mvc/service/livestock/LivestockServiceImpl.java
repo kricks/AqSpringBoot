@@ -1,4 +1,4 @@
-package mvc.service;
+package mvc.service.livestock;
 
 import java.util.List;
 
@@ -7,35 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mvc.entity.Livestock;
+import mvc.entity.livestock.LivestockImpl;
 import mvc.repo.LivestockRepo;
 
 @Service
 @Transactional
 public class LivestockServiceImpl implements LivestockService {
 
-	final static Logger logger = Logger.getLogger(AquariumServiceImpl.class);
+	static Logger logger = Logger.getLogger(LivestockServiceImpl.class);
 
 	@Autowired
 	private LivestockRepo livestockRepo;
 
 	@Override
-	public List<Livestock> getAll() {
-		return (List<Livestock>) livestockRepo.findAll();
+	public List<LivestockImpl> getAll() {
+		return livestockRepo.findAll();
 	}
 
 	@Override
-	public Livestock getLivestockById(Integer livestockId) {
+	public LivestockImpl getLivestockById(Integer livestockId) {
 		return livestockRepo.findById(livestockId).get();
 	}
 
 	@Override
-	public List<Livestock> getLivestockByFkAquariumId(Integer fkAquariumId) {
+	public List<LivestockImpl> getLivestockByFkAquariumId(Integer fkAquariumId) {
 		return livestockRepo.findFkAquariumId(fkAquariumId);
 	}
 
 	@Override
-	public Livestock saveLivestock(Livestock livestock) {
+	public LivestockImpl saveLivestock(LivestockImpl livestock) {
 		return livestockRepo.save(livestock);
 	}
 
@@ -49,5 +49,4 @@ public class LivestockServiceImpl implements LivestockService {
 		logger.info("Livestock Delete successful");
 		return true;
 	}
-
 }

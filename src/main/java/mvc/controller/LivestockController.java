@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mvc.entity.Livestock;
-import mvc.service.LivestockService;
+import mvc.entity.livestock.LivestockImpl;
+import mvc.service.livestock.LivestockService;
 
 @RequestMapping(value = "/livestock")
 @RestController
@@ -24,35 +24,30 @@ public class LivestockController {
 	@Autowired
 	private LivestockService livestockService;
 
-	// get all livestock
 	@GetMapping(value = "/all")
-	public List<Livestock> getAllAquariums() {
+	public List<LivestockImpl> getAllAquariums() {
 		return livestockService.getAll();
 	}
 
-	// get livestockId
 	@GetMapping(value = "/{livestockId}")
-	public Livestock getLivestockId(@PathVariable("livestockId") Integer livestockId) {
+	public LivestockImpl getLivestockId(@PathVariable("livestockId") Integer livestockId) {
 		return livestockService.getLivestockById(livestockId);
 	}
 
-	// getAllLivestockByFkAquariumId
 	@GetMapping(value = "/aqFk/{fkAquariumId}")
-	public List<Livestock> getLivestockByFkAquariumId(@PathVariable("fkAquariumId") Integer fkAquariumId) {
+	public List<LivestockImpl> getLivestockByFkAquariumId(@PathVariable("fkAquariumId") Integer fkAquariumId) {
 		return livestockService.getLivestockByFkAquariumId(fkAquariumId);
 	}
 
-	// create livestock
 	@PostMapping(value = "/create")
-	public Livestock createLivestock(@RequestBody Livestock livestock) {
+	public LivestockImpl createLivestock(@RequestBody LivestockImpl livestock) {
 		return livestockService.saveLivestock(livestock);
 	}
 
-	// update
 	@PutMapping(value = "/update/{livestockId}")
-	public Livestock updateAquarium(@PathVariable("livestockId") Integer livestockId,
-			@RequestBody Livestock livestock) {
-		Livestock update = livestockService.getLivestockById(livestockId);
+	public LivestockImpl updateAquarium(@PathVariable("livestockId") Integer livestockId,
+			@RequestBody LivestockImpl livestock) {
+		LivestockImpl update = livestockService.getLivestockById(livestockId);
 		update.setName(livestock.getName());
 		update.setSpecies(livestock.getSpecies());
 		update.setGender(livestock.getGender());
@@ -60,7 +55,6 @@ public class LivestockController {
 		return livestockService.saveLivestock(update);
 	}
 
-	// delete
 	@DeleteMapping(value = "/delete/{livestockId}")
 	public boolean deleteLivestock(@PathVariable("livestockId") Integer aquariumId) {
 		return livestockService.deleteLivestockById(aquariumId);

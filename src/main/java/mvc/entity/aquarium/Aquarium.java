@@ -1,12 +1,12 @@
-package mvc.entity;
+package mvc.entity.aquarium;
 
 import java.util.Date;
 
 public interface Aquarium {
 
-	public Integer getAquariumId();
+	Integer getAquariumId();
 
-	public void setAquariumId(Integer aquariumId);
+	void setAquariumId(Integer aquariumId);
 
 	String getName();
 
