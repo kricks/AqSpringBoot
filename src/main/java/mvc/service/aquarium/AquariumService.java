@@ -12,6 +12,5 @@ public interface AquariumService {
 
 	AquariumImpl saveAquarium(AquariumImpl aquarium);
 
-	boolean deleteAquariumById(Integer aquariumId);
-
+	Integer deleteAquariumById(Integer aquariumId);
 }

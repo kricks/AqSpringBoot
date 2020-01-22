@@ -14,6 +14,5 @@ public interface LivestockService {
 
 	LivestockImpl saveLivestock(LivestockImpl livestock);
 
-	boolean deleteLivestockById(Integer livestockId);
-
+	Integer deleteLivestockById(Integer livestockId);
 }

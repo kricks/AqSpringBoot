@@ -2,7 +2,6 @@ package mvc.manager.livestock;
 
 import java.util.List;
 
-import mvc.entity.livestock.LivestockImpl;
 import mvc.entity.livestock.LivestockView;
 
 public interface LivestockManager {
@@ -13,8 +12,7 @@ public interface LivestockManager {
 
 	List<LivestockView> findLivestockByFkAquariumId(Integer fkAquariumId);
 
-	LivestockView saveLivestock(LivestockImpl livestock);
+	LivestockView saveLivestock(LivestockView livestock);
 
-	boolean deleteLivestockById(Integer livestockId);
-
+	Integer deleteLivestockById(Integer livestockId);
 }

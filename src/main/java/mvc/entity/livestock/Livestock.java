@@ -25,5 +25,4 @@ public interface Livestock {
 	Integer getFkAquariumId();
 
 	void setFkAquariumId(Integer fkAquariumId);
-
 }

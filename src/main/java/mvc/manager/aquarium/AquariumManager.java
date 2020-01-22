@@ -12,6 +12,5 @@ public interface AquariumManager {
 
 	AquariumView saveAquarium(AquariumView aquarium);
 
-	boolean deleteAquariumById(Integer aquariumId);
-
+	Integer deleteAquariumById(Integer aquariumId);
 }

@@ -14,7 +14,7 @@ import mvc.repo.LivestockRepo;
 @Transactional
 public class LivestockServiceImpl implements LivestockService {
 
-	static Logger logger = Logger.getLogger(LivestockServiceImpl.class);
+	static final Logger logger = Logger.getLogger(LivestockServiceImpl.class);
 
 	@Autowired
 	private LivestockRepo livestockRepo;
@@ -40,13 +40,7 @@ public class LivestockServiceImpl implements LivestockService {
 	}
 
 	@Override
-	public boolean deleteLivestockById(Integer livestockId) {
-		if (livestockId == null) {
-			logger.error("Delete livestock failed");
-			return false;
-		}
-		livestockRepo.deleteById(livestockId);
-		logger.info("Livestock Delete successful");
-		return true;
+	public Integer deleteLivestockById(Integer livestockId) {
+		return livestockRepo.deleteLsById(livestockId);
 	}
 }

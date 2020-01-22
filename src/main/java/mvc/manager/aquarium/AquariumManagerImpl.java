@@ -42,7 +42,7 @@ public class AquariumManagerImpl implements AquariumManager {
 	}
 
 	@Override
-	public boolean deleteAquariumById(Integer aquariumId) {
+	public Integer deleteAquariumById(Integer aquariumId) {
 		return aquariumService.deleteAquariumById(aquariumId);
 	}
 }

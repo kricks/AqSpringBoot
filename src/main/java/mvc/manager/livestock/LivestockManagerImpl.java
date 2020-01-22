@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import mvc.entity.livestock.LivestockImpl;
 import mvc.entity.livestock.LivestockView;
 import mvc.service.livestock.LivestockService;
 
+@Service
 public class LivestockManagerImpl implements LivestockManager {
 
 	@Autowired
@@ -42,14 +44,15 @@ public class LivestockManagerImpl implements LivestockManager {
 	}
 
 	@Override
-	public LivestockView saveLivestock(LivestockImpl livestock) {
-		LivestockImpl lsImpl = livestockService.saveLivestock(livestock);
+	public LivestockView saveLivestock(LivestockView livestock) {
+		LivestockImpl lsImpl = new LivestockImpl(livestock);
+		livestockService.saveLivestock(lsImpl);
 		LivestockView lsView = new LivestockView(lsImpl);
 		return lsView;
 	}
 
 	@Override
-	public boolean deleteLivestockById(Integer livestockId) {
+	public Integer deleteLivestockById(Integer livestockId) {
 		return livestockService.deleteLivestockById(livestockId);
 	}
 }

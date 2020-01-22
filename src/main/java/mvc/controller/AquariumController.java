@@ -29,6 +29,7 @@ public class AquariumController {
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<AquariumView>> getAllAquariums() {
 		List<AquariumView> aquariums = aquariumManager.getAll();
+
 		if (aquariums.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -36,30 +37,39 @@ public class AquariumController {
 	}
 
 	@GetMapping(value = "/{aquariumId}")
-	public AquariumView getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
-		return aquariumManager.getAquariumById(aquariumId);
+	public ResponseEntity<AquariumView> getAquariumById(@PathVariable("aquariumId") Integer aquariumId) {
+		AquariumView aqView = aquariumManager.getAquariumById(aquariumId);
+		if (aquariumId == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(aqView, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/create")
-	public AquariumView createAquarium(@RequestBody AquariumView aquarium) {
-		return aquariumManager.saveAquarium(aquarium);
+	public ResponseEntity<AquariumView> createAquarium(@RequestBody AquariumView aquarium) {
+		Integer aquariumId = aquarium.getAquariumId();
+		if (aquariumId != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		AquariumView aqView = aquariumManager.saveAquarium(aquarium);
+		return new ResponseEntity<>(aqView, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/update/{aquariumId}")
-	public AquariumView updateAquarium(@PathVariable("aquariumId") Integer aquariumId,
-			@RequestBody AquariumView aquarium) {
-
-		AquariumView update = aquariumManager.getAquariumById(aquariumId);
-		update.setName(aquarium.getName());
-		update.setType(aquarium.getType());
-		update.setGallon(aquarium.getGallon());
-		update.setNotes(aquarium.getNotes());
-		update.setDate(aquarium.getDate());
-		return aquariumManager.saveAquarium(update);
+	public ResponseEntity<AquariumView> updateAquarium(@RequestBody AquariumView aquarium) {
+		if (aquarium.getAquariumId() == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		AquariumView aqView = aquariumManager.saveAquarium(aquarium);
+		return new ResponseEntity<>(aqView, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/delete/{aquariumId}")
-	public boolean deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
-		return aquariumManager.deleteAquariumById(aquariumId);
+	public ResponseEntity<Integer> deleteAquarium(@PathVariable("aquariumId") Integer aquariumId) {
+		if (aquariumId == null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		Integer delete = aquariumManager.deleteAquariumById(aquariumId);
+		return new ResponseEntity<>(delete, HttpStatus.OK);
 	}
 }

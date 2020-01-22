@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mvc.entity.livestock.LivestockImpl;
-import mvc.service.livestock.LivestockService;
+import mvc.entity.livestock.LivestockView;
+import mvc.manager.livestock.LivestockManager;
 
 @RequestMapping(value = "/livestock")
 @RestController
@@ -22,41 +24,56 @@ import mvc.service.livestock.LivestockService;
 public class LivestockController {
 
 	@Autowired
-	private LivestockService livestockService;
+	private LivestockManager livestockManager;
 
 	@GetMapping(value = "/all")
-	public List<LivestockImpl> getAllAquariums() {
-		return livestockService.getAll();
+	public ResponseEntity<List<LivestockView>> getAllAquariums() {
+		List<LivestockView> livestock = livestockManager.findAllLivestock();
+		if (livestock.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(livestock, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{livestockId}")
-	public LivestockImpl getLivestockId(@PathVariable("livestockId") Integer livestockId) {
-		return livestockService.getLivestockById(livestockId);
+	public ResponseEntity<LivestockView> getLivestockId(@PathVariable("livestockId") Integer livestockId) {
+		LivestockView lsView = livestockManager.findById(livestockId);
+		if (livestockId == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(lsView, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/aqFk/{fkAquariumId}")
-	public List<LivestockImpl> getLivestockByFkAquariumId(@PathVariable("fkAquariumId") Integer fkAquariumId) {
-		return livestockService.getLivestockByFkAquariumId(fkAquariumId);
+	public List<LivestockView> getLivestockByFkAquariumId(@PathVariable("fkAquariumId") Integer fkAquariumId) {
+		return livestockManager.findLivestockByFkAquariumId(fkAquariumId);
 	}
 
 	@PostMapping(value = "/create")
-	public LivestockImpl createLivestock(@RequestBody LivestockImpl livestock) {
-		return livestockService.saveLivestock(livestock);
+	public ResponseEntity<LivestockView> createLivestock(@RequestBody LivestockView livestock) {
+		Integer livestockId = livestock.getLivestockId();
+		if (livestockId != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		LivestockView lsView = livestockManager.saveLivestock(livestock);
+		return new ResponseEntity<>(lsView, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/update/{livestockId}")
-	public LivestockImpl updateAquarium(@PathVariable("livestockId") Integer livestockId,
-			@RequestBody LivestockImpl livestock) {
-		LivestockImpl update = livestockService.getLivestockById(livestockId);
-		update.setName(livestock.getName());
-		update.setSpecies(livestock.getSpecies());
-		update.setGender(livestock.getGender());
-		update.setNotes(livestock.getNotes());
-		return livestockService.saveLivestock(update);
+	public ResponseEntity<LivestockView> updateAquarium(@RequestBody LivestockView livestock) {
+		if (livestock.getLivestockId() == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		LivestockView lsView = livestockManager.saveLivestock(livestock);
+		return new ResponseEntity<>(lsView, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/delete/{livestockId}")
-	public boolean deleteLivestock(@PathVariable("livestockId") Integer aquariumId) {
-		return livestockService.deleteLivestockById(aquariumId);
+	public ResponseEntity<Integer> deleteLivestock(@PathVariable("livestockId") Integer livestockId) {
+		if (livestockId == null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		Integer delete = livestockManager.deleteLivestockById(livestockId);
+		return new ResponseEntity<>(delete, HttpStatus.OK);
 	}
 }

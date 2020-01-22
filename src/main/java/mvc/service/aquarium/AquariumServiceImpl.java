@@ -5,14 +5,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import mvc.entity.aquarium.AquariumImpl;
 import mvc.repo.AquariumRepo;
 
 @Service
+@Transactional
 public class AquariumServiceImpl implements AquariumService {
 
-	static Logger logger = Logger.getLogger(AquariumServiceImpl.class);
+	static final Logger logger = Logger.getLogger(AquariumServiceImpl.class);
 
 	@Autowired
 	private AquariumRepo aquariumRepo;
@@ -25,7 +27,6 @@ public class AquariumServiceImpl implements AquariumService {
 	@Override
 	public AquariumImpl getAquariumById(Integer aquariumId) {
 		return aquariumRepo.findById(aquariumId).get();
-
 	}
 
 	@Override
@@ -34,13 +35,7 @@ public class AquariumServiceImpl implements AquariumService {
 	}
 
 	@Override
-	public boolean deleteAquariumById(Integer aquariumId) {
-		if (aquariumId == null) {
-			logger.error("Delete aquarium failed");
-			return false;
-		}
-		aquariumRepo.deleteById(aquariumId);
-		logger.info("Aquarium Successfully Deleted");
-		return true;
+	public Integer deleteAquariumById(Integer aquariumId) {
+		return aquariumRepo.deleteAqById(aquariumId);
 	}
 }
