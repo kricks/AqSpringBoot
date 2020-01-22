@@ -17,5 +17,4 @@ public class AqSpringBootApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AqSpringBootApplication.class, args);
 	}
-
 }

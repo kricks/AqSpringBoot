@@ -89,5 +89,4 @@ public class AquariumImpl implements Aquarium {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
 }

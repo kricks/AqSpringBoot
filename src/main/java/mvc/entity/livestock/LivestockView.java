@@ -66,5 +66,4 @@ public class LivestockView implements Livestock {
 	public void setFkAquariumId(Integer fkAquariumId) {
 		this.fkAquariumId = fkAquariumId;
 	}
-
 }

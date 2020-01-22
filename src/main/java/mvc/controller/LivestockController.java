@@ -59,5 +59,4 @@ public class LivestockController {
 	public boolean deleteLivestock(@PathVariable("livestockId") Integer aquariumId) {
 		return livestockService.deleteLivestockById(aquariumId);
 	}
-
 }

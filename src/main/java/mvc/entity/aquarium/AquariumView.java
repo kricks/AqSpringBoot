@@ -71,11 +71,4 @@ public class AquariumView implements Aquarium {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	@Override
-	public String toString() {
-		return "AquariumView [aquariumId=" + aquariumId + ", name=" + name + ", type=" + type + ", gallon=" + gallon
-				+ ", notes=" + notes + ", date=" + date + "]";
-	}
-
 }
