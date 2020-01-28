@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -50,7 +50,10 @@ public class AquariumTest {
 	@Test(priority = 3, dependsOnMethods = "getAquariumListPage")
 	public void clearForm() throws InterruptedException {
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
-		driver.findElement(By.id("typeField")).sendKeys("Fresh Water");
+
+		Select types = new Select(driver.findElement(By.id("typeField")));
+		types.selectByVisibleText("Salt Water");
+
 		driver.findElement(By.id("gallonField")).sendKeys("75");
 		driver.findElement(By.id("notesField")).sendKeys("TESTING");
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
@@ -62,7 +65,8 @@ public class AquariumTest {
 	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void formSubmission() throws InterruptedException {
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
-		driver.findElement(By.id("typeField")).sendKeys("Fresh Water");
+		Select types = new Select(driver.findElement(By.id("typeField")));
+		types.selectByVisibleText("Brackish Water");
 		driver.findElement(By.id("gallonField")).sendKeys("75");
 		driver.findElement(By.id("notesField")).sendKeys("TESTING");
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
@@ -80,16 +84,20 @@ public class AquariumTest {
 	public void aquariumEdit() throws InterruptedException {
 		Thread.sleep(3000);
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
-		Thread.sleep(3000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("nameField"))).clear();
+//		wait.until(ExpectedConditions.elementToBeClickable(By.id("nameField"))).clear();
+//		wait.until(ExpectedConditions.elementToBeClickable(By.id("gallonField"))).clear();
+//		wait.until(ExpectedConditions.elementToBeClickable(By.id("notesField"))).clear();
+//		wait.until(ExpectedConditions.elementToBeClickable(By.id("dateField"))).clear();
+		driver.findElement(By.id("nameField")).clear();
+		driver.findElement(By.id("gallonField")).clear();
+		driver.findElement(By.id("notesField")).clear();
+		driver.findElement(By.id("dateField")).clear();
+
 		driver.findElement(By.id("nameField")).sendKeys("SELENIUM");
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("typeField"))).clear();
-		driver.findElement(By.id("typeField")).sendKeys("Salt Water");
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("gallonField"))).clear();
+		Select types = new Select(driver.findElement(By.id("typeField")));
+		types.selectByVisibleText("Salt Water");
 		driver.findElement(By.id("gallonField")).sendKeys("400");
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("notesField"))).clear();
 		driver.findElement(By.id("notesField")).sendKeys("SELENIUM");
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("dateField"))).clear();
 		driver.findElement(By.id("dateField")).sendKeys("01/27/2020");
 		driver.findElement(By.id("updateButton")).click();
 	}
