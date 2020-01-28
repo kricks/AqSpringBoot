@@ -21,6 +21,7 @@ public class HomePageTest {
 	@Test
 	public void directToAquariumList() {
 		driver.get(BASE_URI);
+		// Assert.assertTrue(driver.findElement(By.id("getStarted")).click(), BASE_URI);
 		driver.findElement(By.id("getStarted")).click();
 	}
 
