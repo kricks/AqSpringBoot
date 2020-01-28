@@ -20,6 +20,11 @@ public class LivestockTest {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\k.ricks-pennington\\Desktop\\chromedriver.exe");
 	}
 
+	@BeforeTest
+	public void beforeTest() {
+		driver = new ChromeDriver();
+	}
+
 	@Test(priority = 1)
 	public void getLivestockPage() {
 		String uri = String.join("", BASE_URI + livestockList);
@@ -90,14 +95,8 @@ public class LivestockTest {
 		driver.findElement(By.id("aquariumBuilder")).click();
 	}
 
-	@BeforeTest
-	public void beforeTest() {
-		driver = new ChromeDriver();
-	}
-
 	@AfterTest
 	public void afterTest() {
 		driver.close();
 	}
-
 }
