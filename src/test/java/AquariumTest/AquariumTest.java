@@ -112,8 +112,8 @@ public class AquariumTest {
 	}
 
 	@Test(priority = 6, dependsOnMethods = "redirectToAquariumList")
-	public void aquariumEdit() throws InterruptedException {
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+	public void aquariumEdit() {
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumkEdit-TESTING"))));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
 		List<WebElement> currentValues = driver.findElements(By.id("aquariumName-TESTING"));
 
