@@ -36,6 +36,7 @@ public class AquariumTest {
 	@Test(priority = 1)
 	public void getAquariumListPage() {
 		driver.get(BASE_URI + "/aquarium-list");
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("aquariumList")));
 		Assert.assertTrue(driver.getCurrentUrl().equals(BASE_URI + "/aquarium-list"));
 	}
 
@@ -63,54 +64,45 @@ public class AquariumTest {
 		driver.findElement(By.id("gallonField")).sendKeys("75");
 		driver.findElement(By.id("notesField")).sendKeys("TESTING");
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
+
 		driver.findElement(By.id("clearForm")).click();
 
-//		WebElement element = driver.findElement(By.id("test"));
-//		List<WebElement> inputFields = element.findElements(By.cssSelector()));
-//
-//		Thread.sleep(3000);
-//		for (WebElement web : inputFields) {
-//			System.out.println("TEXT OF WEB " + web.getText());
-//			System.out.println("Attribute " + web.getAttribute(inputFields.toString()));
-//			Assert.assertEquals(web.getAttribute(inputFields.toString()), null);
-//		}
+		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
+		for (WebElement web : inputFields) {
+			String element = web.getAttribute("value").toString();
+			System.out.println("Attribute " + element);
+			Assert.assertEquals(element, "");
+		}
 	}
 
-//	@Test(priority = 4, dependsOnMethods = "clearForm")
-//	public boolean areFieldsCleared() {
-//		WebElement element = driver.findElement(By.id("aquariumForm"));
-//		List<WebElement> inputFields = element.findElements(By.cssSelector("input"));
-//
-//		for (WebElement web : inputFields) {
-//			System.out.println("Cleared fields " + web.getAttribute(element.toString()));
-//			if (web.getAttribute("aquariumForm") != null) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
-
 	@Test(priority = 5, dependsOnMethods = "clearForm")
-	public void formSubmission() throws InterruptedException {
+	public void formSubmission() {
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
 		Select types = new Select(driver.findElement(By.id("typeField")));
 		types.selectByVisibleText("Brackish Water");
 		driver.findElement(By.id("gallonField")).sendKeys("75");
 		driver.findElement(By.id("notesField")).sendKeys("TESTING");
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
-		Thread.sleep(3000);
+
+		Assert.assertEquals(driver.findElement(By.id("nameField")).getAttribute("value").toString(), "TESTING");
+		Assert.assertEquals(driver.findElement(By.id("typeField")).getAttribute("value").toString(), "Brackish Water");
+		Assert.assertEquals(driver.findElement(By.id("gallonField")).getAttribute("value").toString(), "75");
+		Assert.assertEquals(driver.findElement(By.id("notesField")).getAttribute("value").toString(), "TESTING");
+		Assert.assertEquals(driver.findElement(By.id("dateField")).getAttribute("value").toString(), "01/23/2020");
+
 		driver.findElement(By.id("submitButton")).submit();
-		Thread.sleep(3000);
 	}
 
 	@Test(priority = 6, dependsOnMethods = "formSubmission")
 	public void redirectAqConfToAqList() {
 		driver.findElement(By.id("backToAqList")).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 	}
 
 	@Test(priority = 7, dependsOnMethods = "redirectAqConfToAqList")
-	public void aquariumEdit() throws InterruptedException {
-		Thread.sleep(3000);
+	public void aquariumEdit() {
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
 		driver.findElement(By.id("nameField")).clear();
 		driver.findElement(By.id("nameField")).sendKeys("SELENIUM");
@@ -126,21 +118,23 @@ public class AquariumTest {
 	}
 
 	@Test(priority = 8, dependsOnMethods = "aquariumEdit")
-	public void aquariumDelete() throws InterruptedException {
-		Thread.sleep(2000);
+	public void aquariumDelete() {
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("aquariumDelete-SELENIUM")));
 		driver.findElement(By.id("aquariumDelete-SELENIUM")).click();
 	}
 
 	@Test(priority = 9, dependsOnMethods = "getAquariumListPage")
-	public void directPageToLivestock() throws InterruptedException {
-		Thread.sleep(2000);
+	public void directPageToLivestock() {
+		// wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("view-295")).click();
-		Thread.sleep(2000);
+		// wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
+
 	}
 
 	@Test(priority = 10, dependsOnMethods = "getAquariumListPage")
 	public void directToHomePage() {
 		driver.findElement(By.id("aquariumBuilder")).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("getStarted")));
 	}
 
 	@AfterTest
