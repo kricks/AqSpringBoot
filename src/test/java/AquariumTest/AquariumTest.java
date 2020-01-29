@@ -64,6 +64,7 @@ public class AquariumTest {
 	public void isFormInputFieldRequired() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		SoftAssert softAssert = new SoftAssert();
+
 		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
 		for (WebElement web : inputFields) {
 			String element = web.getAttribute("required");
@@ -75,9 +76,12 @@ public class AquariumTest {
 		}
 	}
 
+	// TODO DATE validation with mm/dd/yyyy format
+
 	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void formSubmission() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
 		Select types = new Select(driver.findElement(By.id("typeField")));
 		types.selectByVisibleText("Brackish Water");
@@ -85,29 +89,29 @@ public class AquariumTest {
 		driver.findElement(By.id("notesField")).sendKeys("TESTING");
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
 
-		Assert.assertEquals(driver.findElement(By.id("nameField")).getAttribute("value").toString(), "TESTING");
-		Assert.assertEquals(driver.findElement(By.id("typeField")).getAttribute("value").toString(), "Brackish Water");
-		Assert.assertEquals(driver.findElement(By.id("gallonField")).getAttribute("value").toString(), "75");
-		Assert.assertEquals(driver.findElement(By.id("notesField")).getAttribute("value").toString(), "TESTING");
-		Assert.assertEquals(driver.findElement(By.id("dateField")).getAttribute("value").toString(), "01/23/2020");
-
 		driver.findElement(By.id("submitButton")).submit();
+
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameConf")));
+
+		Assert.assertEquals(driver.findElement(By.id("nameConf")).getText(), "TESTING");
+		Assert.assertEquals(driver.findElement(By.id("typeConf")).getText(), "Brackish Water");
+		Assert.assertEquals(driver.findElement(By.id("gallonConf")).getText(), "75");
+		Assert.assertEquals(driver.findElement(By.id("notesConf")).getText(), "TESTING");
+		Assert.assertEquals(driver.findElement(By.id("dateConf")).getText(), "01/23/2020");
+
 	}
 
 	@Test(priority = 5, dependsOnMethods = "formSubmission")
-	public void redirectAqConfToAqList() {
+	public void redirectToAquariumList() {
 		driver.findElement(By.id("backToAqList")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 	}
 
-	@Test(priority = 6, dependsOnMethods = "redirectAqConfToAqList")
-	public void aquariumEdit() {
-		// TODO assert this
-		// maybe check updated array is +1 more than original array?
-		// need to check the values of update are the updated values
-		// and not something else
+	@Test(priority = 6, dependsOnMethods = "redirectToAquariumList")
+	public void aquariumEdit() throws InterruptedException {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
+		List<WebElement> currentValues = driver.findElements(By.id("aquariumName-TESTING"));
 		driver.findElement(By.id("nameField")).clear();
 		driver.findElement(By.id("nameField")).sendKeys("SELENIUM");
 		Select types = new Select(driver.findElement(By.id("typeField")));
@@ -117,8 +121,11 @@ public class AquariumTest {
 		driver.findElement(By.id("notesField")).clear();
 		driver.findElement(By.id("notesField")).sendKeys("SELENIUM");
 		driver.findElement(By.id("dateField")).clear();
-		driver.findElement(By.id("dateField")).sendKeys("01/27/2020");
+		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
 		driver.findElement(By.id("updateButton")).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("cardName-SELENIUM")));
+		List<WebElement> updatedValues = driver.findElements(By.id("aquariumName-SELENIUM"));
+		Assert.assertNotEquals(currentValues, updatedValues);
 	}
 
 	@Test(priority = 7, dependsOnMethods = "aquariumEdit")
@@ -129,12 +136,9 @@ public class AquariumTest {
 
 	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
 	public void directPageToLivestock() throws InterruptedException {
-		// TODO thjis is broken
-		Thread.sleep(2000);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated((By.id("view-295"))));
 		driver.findElement(By.id("view-295")).click();
-		Thread.sleep(2000);
-		// wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
 
 	}
 
