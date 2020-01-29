@@ -13,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class AquariumTest {
 	// TODO: take out all threads. and add assertions
@@ -41,21 +42,6 @@ public class AquariumTest {
 	}
 
 	@Test(priority = 2, dependsOnMethods = "getAquariumListPage")
-	public void getAllAquariums() {
-		// TODO: how do i verify size of actual array and expected array?
-//		wait.until(ExpectedConditions.visibilityOfAllElements((List<WebElement>) By.id("cardName")));
-		List<WebElement> elements = driver.findElements(By.id("cardName"));
-
-		System.out.println("Size of array: " + elements.size());
-
-		for (WebElement web : elements) {
-			System.out.println("Aquarium : " + web.getText());
-		}
-
-//		Assert.assertEquals(elements.size(), elements.size());
-	}
-
-	@Test(priority = 3, dependsOnMethods = "getAquariumListPage")
 	public void clearForm() throws InterruptedException {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
@@ -70,12 +56,26 @@ public class AquariumTest {
 		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
 		for (WebElement web : inputFields) {
 			String element = web.getAttribute("value").toString();
-			System.out.println("Attribute " + element);
-			Assert.assertEquals(element, "");
+			Assert.assertEquals(element, "", "Clear form failed. Expecting empty string.");
 		}
 	}
 
-	@Test(priority = 5, dependsOnMethods = "clearForm")
+	@Test(priority = 3, dependsOnMethods = "clearForm")
+	public void isFormInputFieldRequired() {
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+		SoftAssert softAssert = new SoftAssert();
+		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
+		for (WebElement web : inputFields) {
+			String element = web.getAttribute("required");
+			String fieldName = web.getAttribute("id").toString();
+			if (element != null) {
+				System.out.println("This field, " + fieldName + ", is required : " + element);
+				softAssert.assertEquals(element, true);
+			}
+		}
+	}
+
+	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void formSubmission() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
@@ -94,14 +94,18 @@ public class AquariumTest {
 		driver.findElement(By.id("submitButton")).submit();
 	}
 
-	@Test(priority = 6, dependsOnMethods = "formSubmission")
+	@Test(priority = 5, dependsOnMethods = "formSubmission")
 	public void redirectAqConfToAqList() {
 		driver.findElement(By.id("backToAqList")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 	}
 
-	@Test(priority = 7, dependsOnMethods = "redirectAqConfToAqList")
+	@Test(priority = 6, dependsOnMethods = "redirectAqConfToAqList")
 	public void aquariumEdit() {
+		// TODO assert this
+		// maybe check updated array is +1 more than original array?
+		// need to check the values of update are the updated values
+		// and not something else
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
 		driver.findElement(By.id("nameField")).clear();
@@ -117,21 +121,24 @@ public class AquariumTest {
 		driver.findElement(By.id("updateButton")).click();
 	}
 
-	@Test(priority = 8, dependsOnMethods = "aquariumEdit")
+	@Test(priority = 7, dependsOnMethods = "aquariumEdit")
 	public void aquariumDelete() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("aquariumDelete-SELENIUM")));
 		driver.findElement(By.id("aquariumDelete-SELENIUM")).click();
 	}
 
-	@Test(priority = 9, dependsOnMethods = "getAquariumListPage")
-	public void directPageToLivestock() {
-		// wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
+	public void directPageToLivestock() throws InterruptedException {
+		// TODO thjis is broken
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("view-295")).click();
+		Thread.sleep(2000);
 		// wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
 
 	}
 
-	@Test(priority = 10, dependsOnMethods = "getAquariumListPage")
+	@Test(priority = 9, dependsOnMethods = "getAquariumListPage")
 	public void directToHomePage() {
 		driver.findElement(By.id("aquariumBuilder")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("getStarted")));
