@@ -51,6 +51,7 @@ public class AquariumTest {
 		driver.findElement(By.id("notesField")).sendKeys("TESTING");
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
 
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("clearForm"))));
 		driver.findElement(By.id("clearForm")).click();
 
 		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
@@ -76,7 +77,8 @@ public class AquariumTest {
 		}
 	}
 
-	// TODO DATE validation with mm/dd/yyyy format
+	// TODO DATE validation with mm/dd/yyyy format and no negative numbers for
+	// gallon input
 
 	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void formSubmission() {
@@ -89,6 +91,7 @@ public class AquariumTest {
 		driver.findElement(By.id("notesField")).sendKeys("TESTING");
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
 
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("submitButton"))));
 		driver.findElement(By.id("submitButton")).submit();
 
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameConf")));
@@ -105,6 +108,7 @@ public class AquariumTest {
 	public void redirectToAquariumList() {
 		driver.findElement(By.id("backToAqList")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+		// TODO check that array has addded
 	}
 
 	@Test(priority = 6, dependsOnMethods = "redirectToAquariumList")
@@ -112,6 +116,7 @@ public class AquariumTest {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
 		List<WebElement> currentValues = driver.findElements(By.id("aquariumName-TESTING"));
+
 		driver.findElement(By.id("nameField")).clear();
 		driver.findElement(By.id("nameField")).sendKeys("SELENIUM");
 		Select types = new Select(driver.findElement(By.id("typeField")));
@@ -123,6 +128,7 @@ public class AquariumTest {
 		driver.findElement(By.id("dateField")).clear();
 		driver.findElement(By.id("dateField")).sendKeys("01/23/2020");
 		driver.findElement(By.id("updateButton")).click();
+
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("cardName-SELENIUM")));
 		List<WebElement> updatedValues = driver.findElements(By.id("aquariumName-SELENIUM"));
 		Assert.assertNotEquals(currentValues, updatedValues);
@@ -130,13 +136,14 @@ public class AquariumTest {
 
 	@Test(priority = 7, dependsOnMethods = "aquariumEdit")
 	public void aquariumDelete() {
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("aquariumDelete-SELENIUM")));
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumDelete-SELENIUM"))));
 		driver.findElement(By.id("aquariumDelete-SELENIUM")).click();
+		// TODO check that array has delete
 	}
 
 	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
-	public void directPageToLivestock() throws InterruptedException {
-		wait.until(ExpectedConditions.visibilityOfElementLocated((By.id("view-295"))));
+	public void directPageToLivestock() {
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("view-295"))));
 		driver.findElement(By.id("view-295")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
 
@@ -144,6 +151,7 @@ public class AquariumTest {
 
 	@Test(priority = 9, dependsOnMethods = "getAquariumListPage")
 	public void directToHomePage() {
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumBuilder"))));
 		driver.findElement(By.id("aquariumBuilder")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("getStarted")));
 	}
