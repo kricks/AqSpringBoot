@@ -16,8 +16,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class AquariumTest {
-	// TODO: take out all threads. and add assertions
-
 	static final String BASE_URI = "http://localhost:4200/AquariumBuilder";
 	static final String aquariumList = "/aquarium-list";
 	WebDriver driver;
@@ -42,7 +40,7 @@ public class AquariumTest {
 	}
 
 	@Test(priority = 2, dependsOnMethods = "getAquariumListPage")
-	public void clearForm() throws InterruptedException {
+	public void clearForm() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
 		Select types = new Select(driver.findElement(By.id("typeField")));
