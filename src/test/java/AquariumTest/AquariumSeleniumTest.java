@@ -15,7 +15,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class AquariumTest {
+public class AquariumSeleniumTest {
 	static final String BASE_URI = "http://localhost:4200/AquariumBuilder";
 	static final String aquariumList = "/aquarium-list";
 	WebDriver driver;

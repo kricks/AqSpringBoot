@@ -38,6 +38,15 @@ public class AquariumImpl implements Aquarium {
 		// default constructor
 	}
 
+	public AquariumImpl(Integer aquariumId, String name, String type, Integer gallon, String notes, Date date) {
+		this.aquariumId = aquariumId;
+		this.name = name;
+		this.type = type;
+		this.gallon = gallon;
+		this.notes = notes;
+		this.date = date;
+	}
+
 	public AquariumImpl(AquariumView aquariumView) {
 		BeanUtils.copyProperties(aquariumView, this, Aquarium.class);
 	}
@@ -88,5 +97,11 @@ public class AquariumImpl implements Aquarium {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "AquariumImpl [aquariumId=" + aquariumId + ", name=" + name + ", type=" + type + ", gallon=" + gallon
+				+ ", notes=" + notes + ", date=" + date + "]";
 	}
 }
