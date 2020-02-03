@@ -94,7 +94,7 @@ public class LivestockSeleniumTest {
 			Assert.assertEquals(web.findElement(By.id("genderValue")).getText(), "N/A");
 			Assert.assertEquals(web.findElement(By.id("notesValue")).getText(), "TESTING");
 		}
-		Assert.assertTrue(originalArray.size() + 1 == addedLivestock.size());
+		Assert.assertTrue(addedLivestock.size() == originalArray.size() + 1);
 	}
 
 	@Test(priority = 5, dependsOnMethods = "submitForm")

@@ -76,8 +76,9 @@ public class AquariumSeleniumTest {
 	}
 
 	@Test(priority = 4, dependsOnMethods = "clearForm")
-	public void formSubmission() {
+	public void formSubmissionFlow() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+		List<WebElement> originalList = driver.findElements(By.name("cardName"));
 
 		driver.findElement(By.id("nameField")).sendKeys("TESTING");
 		Select types = new Select(driver.findElement(By.id("typeField")));
@@ -96,17 +97,15 @@ public class AquariumSeleniumTest {
 		Assert.assertEquals(driver.findElement(By.id("gallonConf")).getText(), "75");
 		Assert.assertEquals(driver.findElement(By.id("notesConf")).getText(), "TESTING");
 		Assert.assertEquals(driver.findElement(By.id("dateConf")).getText(), "01/23/2020");
-		// check array size?
 
-	}
-
-	@Test(priority = 5, dependsOnMethods = "formSubmission")
-	public void redirectToAquariumList() {
 		driver.findElement(By.id("backToAqList")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
+
+		List<WebElement> addedList = driver.findElements(By.name("cardName"));
+		Assert.assertEquals(addedList.size(), (originalList.size() + 1));
 	}
 
-	@Test(priority = 6, dependsOnMethods = "redirectToAquariumList")
+	@Test(priority = 5, dependsOnMethods = "formSubmissionFlow")
 	public void aquariumEdit() {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("nameField"))));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
@@ -129,14 +128,17 @@ public class AquariumSeleniumTest {
 		Assert.assertNotEquals(currentValues, updatedValues);
 	}
 
-	@Test(priority = 7, dependsOnMethods = "aquariumEdit")
+	@Test(priority = 6, dependsOnMethods = "aquariumEdit")
 	public void aquariumDelete() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumDelete-SELENIUM"))));
+		List<WebElement> originalList = driver.findElements(By.name("cardName"));
 		driver.findElement(By.id("aquariumDelete-SELENIUM")).click();
-		// TODO check that array has delete
+		wait.until(ExpectedConditions.numberOfElementsToBe(By.name("cardName"), originalList.size() - 1));
+		List<WebElement> listAfterDelete = driver.findElements(By.name("cardName"));
+		Assert.assertEquals(listAfterDelete.size(), (originalList.size() - 1));
 	}
 
-	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
+	@Test(priority = 7, dependsOnMethods = "getAquariumListPage")
 	public void directPageToLivestock() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("view-295"))));
 		driver.findElement(By.id("view-295")).click();
@@ -144,7 +146,7 @@ public class AquariumSeleniumTest {
 
 	}
 
-	@Test(priority = 9, dependsOnMethods = "getAquariumListPage")
+	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
 	public void directToHomePage() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumBuilder"))));
 		driver.findElement(By.id("aquariumBuilder")).click();
