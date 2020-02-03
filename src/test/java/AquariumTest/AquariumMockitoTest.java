@@ -1,6 +1,5 @@
 package AquariumTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.testng.Assert.assertEquals;
@@ -13,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -67,9 +65,7 @@ public class AquariumMockitoTest {
 	public void testDeleteAquariumById() {
 		AquariumImpl aqImplItem = aqImplSingleItem();
 		Integer aquariumId = aqImplItem.getAquariumId();
-		Mockito.when(aqService.deleteAquariumById(aquariumId)).thenReturn(aquariumId);
 		aqService.deleteAquariumById(aquariumId);
-		assertThat(aquariumId == null);
 		verify(aqService, times(1)).deleteAquariumById(aquariumId);
 	}
 
@@ -84,10 +80,5 @@ public class AquariumMockitoTest {
 	private AquariumImpl aqImplSingleItem() {
 		AquariumImpl aqImplItem = new AquariumImpl(200, "Clown Tank", "Salt Water", 50, "Living Room", date);
 		return aqImplItem;
-	}
-
-	@AfterTest
-	public void afterTest() {
-
 	}
 }

@@ -75,9 +75,6 @@ public class AquariumSeleniumTest {
 		}
 	}
 
-	// TODO DATE validation with mm/dd/yyyy format and no negative numbers for
-	// gallon input
-
 	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void formSubmission() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
@@ -99,6 +96,7 @@ public class AquariumSeleniumTest {
 		Assert.assertEquals(driver.findElement(By.id("gallonConf")).getText(), "75");
 		Assert.assertEquals(driver.findElement(By.id("notesConf")).getText(), "TESTING");
 		Assert.assertEquals(driver.findElement(By.id("dateConf")).getText(), "01/23/2020");
+		// check array size?
 
 	}
 
@@ -106,12 +104,11 @@ public class AquariumSeleniumTest {
 	public void redirectToAquariumList() {
 		driver.findElement(By.id("backToAqList")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
-		// TODO check that array has addded
 	}
 
 	@Test(priority = 6, dependsOnMethods = "redirectToAquariumList")
 	public void aquariumEdit() {
-		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumkEdit-TESTING"))));
+		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("nameField"))));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
 		List<WebElement> currentValues = driver.findElements(By.id("aquariumName-TESTING"));
 

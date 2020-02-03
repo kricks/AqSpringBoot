@@ -1,6 +1,5 @@
 package LivestockTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.testng.Assert.assertEquals;
@@ -74,11 +73,8 @@ public class LivestockMockitoTest {
 	public void testDeleteLivestockById() {
 		LivestockImpl lsImplItem = lsImplSingleItem();
 		Integer livestockId = lsImplItem.getLivestockId();
-		Mockito.when(lsService.deleteLivestockById(livestockId)).thenReturn(livestockId);
 		lsService.deleteLivestockById(livestockId);
-		assertThat(livestockId == null);
 		verify(lsService, times(1)).deleteLivestockById(livestockId);
-
 	}
 
 	private List<LivestockImpl> livestockDummyData() {
