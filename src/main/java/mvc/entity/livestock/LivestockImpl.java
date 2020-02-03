@@ -37,6 +37,16 @@ public class LivestockImpl implements Livestock {
 		// default constructor
 	}
 
+	public LivestockImpl(Integer livestockId, String name, String species, String gender, String notes,
+			Integer fkAquariumId) {
+		this.livestockId = livestockId;
+		this.name = name;
+		this.species = species;
+		this.gender = gender;
+		this.notes = notes;
+		this.fkAquariumId = fkAquariumId;
+	}
+
 	public LivestockImpl(LivestockView livestockView) {
 		BeanUtils.copyProperties(livestockView, this, Livestock.class);
 	}
@@ -87,5 +97,11 @@ public class LivestockImpl implements Livestock {
 
 	public void setFkAquariumId(Integer fkAquariumId) {
 		this.fkAquariumId = fkAquariumId;
+	}
+
+	@Override
+	public String toString() {
+		return "LivestockImpl [livestockId=" + livestockId + ", name=" + name + ", species=" + species + ", gender="
+				+ gender + ", notes=" + notes + ", fkAquariumId=" + fkAquariumId + "]";
 	}
 }
