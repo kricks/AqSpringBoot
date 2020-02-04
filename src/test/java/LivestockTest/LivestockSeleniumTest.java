@@ -97,7 +97,7 @@ public class LivestockSeleniumTest {
 			Assert.assertEquals(web.findElement(By.id("genderValue")).getText(), "N/A");
 			Assert.assertEquals(web.findElement(By.id("notesValue")).getText(), "TESTING");
 		}
-		Assert.assertTrue(addedLivestock.size() == originalArray.size() + 1);
+		Assert.assertEquals(addedLivestock.size(), (originalArray.size() + 1));
 	}
 
 	@Test(priority = 5, dependsOnMethods = "submitForm")
@@ -129,11 +129,10 @@ public class LivestockSeleniumTest {
 		List<WebElement> originalArray = driver.findElements(By.name("repeat"));
 
 		driver.findElement(By.id("livestockDelete-SELENIUM")).click();
-		wait.until(ExpectedConditions.presenceOfElementLocated((By.name("repeat"))));
+		wait.until(ExpectedConditions.numberOfElementsToBe(By.name("repeat"), originalArray.size() - 1));
 
 		List<WebElement> updatedArray = driver.findElements(By.name("repeat"));
-		Integer size = originalArray.size() - updatedArray.size();
-		Assert.assertTrue(size == 1);
+		Assert.assertEquals(updatedArray.size(), (originalArray.size() - 1));
 	}
 
 	@Test(priority = 7, dependsOnMethods = "getLivestockPage")
