@@ -60,6 +60,25 @@ public class AquariumSeleniumTest {
 	}
 
 	@Test(priority = 3, dependsOnMethods = "clearForm")
+	public void negativeTestForInvalidInputFields() {
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dateField")));
+		driver.findElement(By.id("dateField")).sendKeys("invalid input!");
+		String dateErrorMessage = driver.findElement(By.id("dateErrorMessage")).getText();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dateErrorMessage")));
+
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("gallonField")));
+		driver.findElement(By.id("gallonField")).sendKeys("-1.1");
+		String gallonErrorMessage = driver.findElement(By.id("gallonErrorMessage")).getText();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("gallonErrorMessage")));
+
+		Assert.assertEquals(dateErrorMessage, "Date is not valid. Format date as : MM/dd/yyyy");
+		Assert.assertEquals(gallonErrorMessage, "Negative Numbers and Decimals are invalid!");
+
+		driver.findElement(By.id("dateField")).clear();
+		driver.findElement(By.id("gallonField")).clear();
+	}
+
+	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void isFormInputFieldRequired() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		SoftAssert softAssert = new SoftAssert();
@@ -67,15 +86,13 @@ public class AquariumSeleniumTest {
 		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
 		for (WebElement web : inputFields) {
 			String element = web.getAttribute("required");
-			String fieldName = web.getAttribute("id").toString();
 			if (element != null) {
-				System.out.println("This field, " + fieldName + ", is required : " + element);
 				softAssert.assertEquals(element, true);
 			}
 		}
 	}
 
-	@Test(priority = 4, dependsOnMethods = "clearForm")
+	@Test(priority = 5, dependsOnMethods = "clearForm")
 	public void formSubmissionFlow() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		List<WebElement> originalList = driver.findElements(By.name("cardName"));
@@ -91,7 +108,6 @@ public class AquariumSeleniumTest {
 		driver.findElement(By.id("submitButton")).submit();
 
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameConf")));
-
 		Assert.assertEquals(driver.findElement(By.id("nameConf")).getText(), "TESTING");
 		Assert.assertEquals(driver.findElement(By.id("typeConf")).getText(), "Brackish Water");
 		Assert.assertEquals(driver.findElement(By.id("gallonConf")).getText(), "75");
@@ -105,7 +121,7 @@ public class AquariumSeleniumTest {
 		Assert.assertEquals(addedList.size(), (originalList.size() + 1));
 	}
 
-	@Test(priority = 5, dependsOnMethods = "formSubmissionFlow")
+	@Test(priority = 6, dependsOnMethods = "formSubmissionFlow")
 	public void aquariumEdit() {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("nameField"))));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
@@ -128,7 +144,7 @@ public class AquariumSeleniumTest {
 		Assert.assertNotEquals(currentValues, updatedValues);
 	}
 
-	@Test(priority = 6, dependsOnMethods = "aquariumEdit")
+	@Test(priority = 7, dependsOnMethods = "aquariumEdit")
 	public void aquariumDelete() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumDelete-SELENIUM"))));
 		List<WebElement> originalList = driver.findElements(By.name("cardName"));
@@ -138,15 +154,14 @@ public class AquariumSeleniumTest {
 		Assert.assertEquals(listAfterDelete.size(), (originalList.size() - 1));
 	}
 
-	@Test(priority = 7, dependsOnMethods = "getAquariumListPage")
+	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
 	public void directPageToLivestock() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("view-295"))));
 		driver.findElement(By.id("view-295")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
-
 	}
 
-	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
+	@Test(priority = 9, dependsOnMethods = "getAquariumListPage")
 	public void directToHomePage() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumBuilder"))));
 		driver.findElement(By.id("aquariumBuilder")).click();

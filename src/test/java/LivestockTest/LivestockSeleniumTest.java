@@ -66,9 +66,7 @@ public class LivestockSeleniumTest {
 		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
 		for (WebElement web : inputFields) {
 			String element = web.getAttribute("required");
-			String fieldName = web.getAttribute("id").toString();
 			if (element != null) {
-				System.out.println("This field, " + fieldName + ", is required : " + element);
 				softAssert.assertEquals(element, true);
 			}
 		}
