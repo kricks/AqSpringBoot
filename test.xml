@@ -2,23 +2,15 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="full suite">
-	<test name="front-end 1">
+	<test name="frontEnd">
 		<classes>
 			<class name="App.HomePageTest" />
-		</classes>
-	</test>
-	<test name="front-end 2">
-		<classes>
 			<class name="AquariumTest.AquariumSeleniumTest" />
-		</classes>
-	</test>
-	<test name="front-end 3">
-		<classes>
 			<class name="LivestockTest.LivestockSeleniumTest" />
 		</classes>
 	</test>
 
-	<test name="back-end tests">
+	<test name="backEnd">
 		<classes>
 			<class name="AquariumTest.AquariumMockitoTest" />
 			<class name="LivestockTest.LivestockMockitoTest" />

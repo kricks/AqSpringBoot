@@ -10,8 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -25,8 +25,8 @@ public class LivestockSeleniumTest {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\k.ricks-pennington\\Desktop\\chromedriver.exe");
 	}
 
-	@BeforeTest
-	public void beforeTest() {
+	@BeforeClass
+	public void beforeClass() {
 		driver = new ChromeDriver();
 		wait = new WebDriverWait(driver, 10);
 		driver.manage().window().maximize();
@@ -48,8 +48,10 @@ public class LivestockSeleniumTest {
 		Select gender = new Select(driver.findElement(By.id("genderFieldLS")));
 		gender.selectByVisibleText("N/A");
 		driver.findElement(By.id("notesFieldLS")).sendKeys("TESTING");
+
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("clearForm"))));
 		driver.findElement(By.id("clearForm")).click();
+
 		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
 		for (WebElement web : inputFields) {
 			String element = web.getAttribute("value").toString();
@@ -76,13 +78,16 @@ public class LivestockSeleniumTest {
 	public void submitForm() {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("notesFieldLS"))));
 		List<WebElement> originalArray = driver.findElements(By.id("livestockName-TESTING"));
+
 		driver.findElement(By.id("nameFieldLS")).sendKeys("TESTING");
 		driver.findElement(By.id("speciesFieldLS")).sendKeys("TESTING FISH");
 		Select gender = new Select(driver.findElement(By.id("genderFieldLS")));
 		gender.selectByVisibleText("N/A");
 		driver.findElement(By.id("notesFieldLS")).sendKeys("TESTING");
+
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("submitButton"))));
 		driver.findElement(By.id("submitButton")).click();
+
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("livestockName-TESTING"))));
 		List<WebElement> addedLivestock = driver.findElements(By.id("livestockName-TESTING"));
 
@@ -100,6 +105,7 @@ public class LivestockSeleniumTest {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("livestockEdit-TESTING"))));
 		driver.findElement(By.id("livestockEdit-TESTING")).click();
 		List<WebElement> currentValues = driver.findElements(By.id("livestockName-TESTING"));
+
 		driver.findElement(By.id("nameFieldLS")).clear();
 		driver.findElement(By.id("nameFieldLS")).sendKeys("SELENIUM");
 		driver.findElement(By.id("speciesFieldLS")).clear();
@@ -108,8 +114,10 @@ public class LivestockSeleniumTest {
 		gender.selectByVisibleText("N/A");
 		driver.findElement(By.id("notesFieldLS")).clear();
 		driver.findElement(By.id("notesFieldLS")).sendKeys("SELENIUM");
+
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("submitButton"))));
 		driver.findElement(By.id("submitButton")).click();
+
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("livestockName-SELENIUM"))));
 		List<WebElement> updatedValues = driver.findElements(By.id("livestockName-SELENIUM"));
 		Assert.assertNotEquals(currentValues, updatedValues);
@@ -119,8 +127,10 @@ public class LivestockSeleniumTest {
 	public void deleteLivestock() {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("livestockDelete-SELENIUM"))));
 		List<WebElement> originalArray = driver.findElements(By.name("repeat"));
+
 		driver.findElement(By.id("livestockDelete-SELENIUM")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.name("repeat"))));
+
 		List<WebElement> updatedArray = driver.findElements(By.name("repeat"));
 		Integer size = originalArray.size() - updatedArray.size();
 		Assert.assertTrue(size == 1);
@@ -140,8 +150,8 @@ public class LivestockSeleniumTest {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("getStarted"))));
 	}
 
-	@AfterTest
-	public void afterTest() {
+	@AfterClass
+	public void afterClass() {
 		driver.quit();
 	}
 }

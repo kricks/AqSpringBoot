@@ -10,8 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -25,8 +25,8 @@ public class AquariumSeleniumTest {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\k.ricks-pennington\\Desktop\\chromedriver.exe");
 	}
 
-	@BeforeTest
-	public void beforeTest() {
+	@BeforeClass
+	public void beforeClass() {
 		driver = new ChromeDriver();
 		wait = new WebDriverWait(driver, 10);
 		driver.manage().window().maximize();
@@ -63,13 +63,13 @@ public class AquariumSeleniumTest {
 	public void negativeTestForInvalidInputFields() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dateField")));
 		driver.findElement(By.id("dateField")).sendKeys("invalid input!");
-		String dateErrorMessage = driver.findElement(By.id("dateErrorMessage")).getText();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dateErrorMessage")));
+		String dateErrorMessage = driver.findElement(By.id("dateErrorMessage")).getText();
 
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("gallonField")));
 		driver.findElement(By.id("gallonField")).sendKeys("-1.1");
-		String gallonErrorMessage = driver.findElement(By.id("gallonErrorMessage")).getText();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("gallonErrorMessage")));
+		String gallonErrorMessage = driver.findElement(By.id("gallonErrorMessage")).getText();
 
 		Assert.assertEquals(dateErrorMessage, "Date is not valid. Format date as : MM/dd/yyyy");
 		Assert.assertEquals(gallonErrorMessage, "Negative Numbers and Decimals are invalid!");
@@ -168,8 +168,8 @@ public class AquariumSeleniumTest {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("getStarted")));
 	}
 
-	@AfterTest
-	public void afterTest() {
+	@AfterClass
+	public void afterClass() {
 		driver.quit();
 	}
 }

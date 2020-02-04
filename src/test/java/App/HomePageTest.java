@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class HomePageTest {
@@ -19,8 +19,8 @@ public class HomePageTest {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\k.ricks-pennington\\Desktop\\chromedriver.exe");
 	}
 
-	@BeforeTest
-	public void beforeTest() {
+	@BeforeClass
+	public void beforeClass() {
 		driver = new ChromeDriver();
 		wait = new WebDriverWait(driver, 10);
 		driver.manage().window().maximize();
@@ -39,8 +39,8 @@ public class HomePageTest {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 	}
 
-	@AfterTest
-	public void afterTest() {
+	@AfterClass
+	public void afterClass() {
 		driver.quit();
 	}
 
