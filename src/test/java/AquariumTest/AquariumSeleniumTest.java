@@ -90,6 +90,7 @@ public class AquariumSeleniumTest {
 				softAssert.assertEquals(element, true);
 			}
 		}
+//		softAssert.assertAll();
 	}
 
 	@Test(priority = 5, dependsOnMethods = "clearForm")
