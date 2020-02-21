@@ -22,7 +22,7 @@ public class AquariumImpl implements Aquarium {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "TYPE", nullable = true)
+	@Column(name = "TYPE", nullable = false)
 	private String type;
 
 	@Column(name = "GALLON", nullable = true)

@@ -4,8 +4,6 @@ import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class AquariumView implements Aquarium {
 
 	private Integer aquariumId;
@@ -13,7 +11,7 @@ public class AquariumView implements Aquarium {
 	private String type;
 	private Integer gallon;
 	private String notes;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "CST")
+//	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "CST")
 	private Date date;
 
 	public AquariumView() {

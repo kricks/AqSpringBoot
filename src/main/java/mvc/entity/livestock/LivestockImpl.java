@@ -15,7 +15,7 @@ public class LivestockImpl implements Livestock {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "livestock_id", nullable = false)
+	@Column(name = "livestock_id")
 	private Integer livestockId;
 
 	@Column(name = "NAME", nullable = false)
@@ -24,7 +24,7 @@ public class LivestockImpl implements Livestock {
 	@Column(name = "SPECIES", nullable = false)
 	private String species;
 
-	@Column(name = "GENDER", nullable = true)
+	@Column(name = "GENDER", nullable = false)
 	private String gender;
 
 	@Column(name = "NOTES", nullable = true)
