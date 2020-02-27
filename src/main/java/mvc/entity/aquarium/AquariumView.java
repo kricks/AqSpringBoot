@@ -14,6 +14,8 @@ public class AquariumView implements Aquarium {
 	private Integer gallon;
 	private String notes;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "CST")
+	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone
+	// = "CST")
 	private Date date;
 
 	public AquariumView() {

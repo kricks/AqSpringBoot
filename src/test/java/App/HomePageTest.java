@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class HomePageTest {
 
-	static final String BASE_URI = "http://localhost:4200/AquariumBuilder";
+	static final String BASE_URI = "http://localhost:4200";
 	public WebDriver driver;
 	WebDriverWait wait;
 

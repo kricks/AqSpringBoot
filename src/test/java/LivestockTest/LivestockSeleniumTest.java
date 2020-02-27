@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class LivestockSeleniumTest {
-	static final String BASE_URI = "http://localhost:4200/AquariumBuilder";
-	static final String livestockList = "/livestock-list/295";
+	static final String BASE_URI = "http://localhost:4200";
+	static final String livestockList = "/livestock/1";
 	WebDriver driver;
 	WebDriverWait wait;
 
@@ -34,8 +34,12 @@ public class LivestockSeleniumTest {
 
 	@Test(priority = 1)
 	public void getLivestockPage() {
-		String uri = String.join("", BASE_URI + livestockList);
-		driver.get(uri);
+		driver.get(BASE_URI + "/aquarium");
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("aquariumList")));
+
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("view-1"))));
+		driver.findElement(By.id("view-1")).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("notesFieldLS"))));
 	}
 
@@ -46,17 +50,16 @@ public class LivestockSeleniumTest {
 		name.sendKeys("TESTING");
 		driver.findElement(By.id("speciesFieldLS")).sendKeys("TESTING FISH");
 		Select gender = new Select(driver.findElement(By.id("genderFieldLS")));
-		gender.selectByVisibleText("N/A");
+		gender.selectByVisibleText("Female");
 		driver.findElement(By.id("notesFieldLS")).sendKeys("TESTING");
 
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("clearForm"))));
 		driver.findElement(By.id("clearForm")).click();
 
-		List<WebElement> inputFields = driver.findElements(By.className("form-control"));
-		for (WebElement web : inputFields) {
-			String element = web.getAttribute("value").toString();
-			Assert.assertEquals(element, "", "Clear form failed. Expecting empty string.");
-		}
+		Assert.assertEquals(driver.findElement(By.id("nameFieldLS")).getText(), "");
+		Assert.assertEquals(driver.findElement(By.id("speciesFieldLS")).getText(), "");
+		Assert.assertEquals(driver.findElement(By.id("notesFieldLS")).getText(), "");
+
 		wait.until(ExpectedConditions.not(ExpectedConditions.attributeToBeNotEmpty(name, "nameFieldLS")));
 	}
 
@@ -82,7 +85,7 @@ public class LivestockSeleniumTest {
 		driver.findElement(By.id("nameFieldLS")).sendKeys("TESTING");
 		driver.findElement(By.id("speciesFieldLS")).sendKeys("TESTING FISH");
 		Select gender = new Select(driver.findElement(By.id("genderFieldLS")));
-		gender.selectByVisibleText("N/A");
+		gender.selectByVisibleText("Female");
 		driver.findElement(By.id("notesFieldLS")).sendKeys("TESTING");
 
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("submitButton"))));
@@ -94,7 +97,7 @@ public class LivestockSeleniumTest {
 		for (WebElement web : addedLivestock) {
 			Assert.assertEquals(web.findElement(By.id("nameValue")).getText(), "TESTING");
 			Assert.assertEquals(web.findElement(By.id("speciesValue")).getText(), "TESTING FISH");
-			Assert.assertEquals(web.findElement(By.id("genderValue")).getText(), "N/A");
+			Assert.assertEquals(web.findElement(By.id("genderValue")).getText(), "Female");
 			Assert.assertEquals(web.findElement(By.id("notesValue")).getText(), "TESTING");
 		}
 		Assert.assertEquals(addedLivestock.size(), (originalArray.size() + 1));
@@ -111,12 +114,12 @@ public class LivestockSeleniumTest {
 		driver.findElement(By.id("speciesFieldLS")).clear();
 		driver.findElement(By.id("speciesFieldLS")).sendKeys("SELENIUM FISH");
 		Select gender = new Select(driver.findElement(By.id("genderFieldLS")));
-		gender.selectByVisibleText("N/A");
+		gender.selectByVisibleText("Female");
 		driver.findElement(By.id("notesFieldLS")).clear();
 		driver.findElement(By.id("notesFieldLS")).sendKeys("SELENIUM");
 
-		wait.until(ExpectedConditions.elementToBeClickable((By.id("submitButton"))));
-		driver.findElement(By.id("submitButton")).click();
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("updateButton"))));
+		driver.findElement(By.id("updateButton")).click();
 
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("livestockName-SELENIUM"))));
 		List<WebElement> updatedValues = driver.findElements(By.id("livestockName-SELENIUM"));

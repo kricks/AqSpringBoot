@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class AquariumSeleniumTest {
-	static final String BASE_URI = "http://localhost:4200/AquariumBuilder";
-	static final String aquariumList = "/aquarium-list";
+	static final String BASE_URI = "http://localhost:4200/";
+	static final String aquariumList = "aquarium";
 	WebDriver driver;
 	WebDriverWait wait;
 
@@ -34,9 +34,9 @@ public class AquariumSeleniumTest {
 
 	@Test(priority = 1)
 	public void getAquariumListPage() {
-		driver.get(BASE_URI + "/aquarium-list");
+		driver.get(BASE_URI + "aquarium");
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("aquariumList")));
-		Assert.assertTrue(driver.getCurrentUrl().equals(BASE_URI + "/aquarium-list"));
+		Assert.assertTrue(driver.getCurrentUrl().equals(BASE_URI + "aquarium"));
 	}
 
 	@Test(priority = 2, dependsOnMethods = "getAquariumListPage")
@@ -60,25 +60,6 @@ public class AquariumSeleniumTest {
 	}
 
 	@Test(priority = 3, dependsOnMethods = "clearForm")
-	public void negativeTestForInvalidInputFields() {
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dateField")));
-		driver.findElement(By.id("dateField")).sendKeys("invalid input!");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dateErrorMessage")));
-		String dateErrorMessage = driver.findElement(By.id("dateErrorMessage")).getText();
-
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("gallonField")));
-		driver.findElement(By.id("gallonField")).sendKeys("-1.1");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("gallonErrorMessage")));
-		String gallonErrorMessage = driver.findElement(By.id("gallonErrorMessage")).getText();
-
-		Assert.assertEquals(dateErrorMessage, "Date is not valid. Format date as : MM/dd/yyyy");
-		Assert.assertEquals(gallonErrorMessage, "Negative Numbers and Decimals are invalid!");
-
-		driver.findElement(By.id("dateField")).clear();
-		driver.findElement(By.id("gallonField")).clear();
-	}
-
-	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void isFormInputFieldRequired() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		SoftAssert softAssert = new SoftAssert();
@@ -93,7 +74,7 @@ public class AquariumSeleniumTest {
 //		softAssert.assertAll();
 	}
 
-	@Test(priority = 5, dependsOnMethods = "clearForm")
+	@Test(priority = 4, dependsOnMethods = "clearForm")
 	public void formSubmissionFlow() {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
 		List<WebElement> originalList = driver.findElements(By.name("cardName"));
@@ -113,7 +94,7 @@ public class AquariumSeleniumTest {
 		Assert.assertEquals(driver.findElement(By.id("typeConf")).getText(), "Brackish Water");
 		Assert.assertEquals(driver.findElement(By.id("gallonConf")).getText(), "75");
 		Assert.assertEquals(driver.findElement(By.id("notesConf")).getText(), "TESTING");
-		Assert.assertEquals(driver.findElement(By.id("dateConf")).getText(), "01/23/2020");
+		Assert.assertEquals(driver.findElement(By.id("dateConf")).getText(), "Jan 23, 2020");
 
 		driver.findElement(By.id("backToAqList")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameField")));
@@ -122,7 +103,7 @@ public class AquariumSeleniumTest {
 		Assert.assertEquals(addedList.size(), (originalList.size() + 1));
 	}
 
-	@Test(priority = 6, dependsOnMethods = "formSubmissionFlow")
+	@Test(priority = 5, dependsOnMethods = "formSubmissionFlow")
 	public void aquariumEdit() {
 		wait.until(ExpectedConditions.presenceOfElementLocated((By.id("nameField"))));
 		driver.findElement(By.id("aquariumEdit-TESTING")).click();
@@ -145,24 +126,29 @@ public class AquariumSeleniumTest {
 		Assert.assertNotEquals(currentValues, updatedValues);
 	}
 
-	@Test(priority = 7, dependsOnMethods = "aquariumEdit")
+	@Test(priority = 6, dependsOnMethods = "aquariumEdit")
 	public void aquariumDelete() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumDelete-SELENIUM"))));
 		List<WebElement> originalList = driver.findElements(By.name("cardName"));
 		driver.findElement(By.id("aquariumDelete-SELENIUM")).click();
+
+//		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("deleteModalLabel")));
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("deleteButton"))));
+		driver.findElement(By.id("deleteButton")).click();
+
 		wait.until(ExpectedConditions.numberOfElementsToBe(By.name("cardName"), originalList.size() - 1));
 		List<WebElement> listAfterDelete = driver.findElements(By.name("cardName"));
 		Assert.assertEquals(listAfterDelete.size(), (originalList.size() - 1));
 	}
 
-	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
+	@Test(priority = 7, dependsOnMethods = "getAquariumListPage")
 	public void directPageToLivestock() {
-		wait.until(ExpectedConditions.elementToBeClickable((By.id("view-295"))));
-		driver.findElement(By.id("view-295")).click();
+		wait.until(ExpectedConditions.elementToBeClickable((By.id("view-1"))));
+		driver.findElement(By.id("view-1")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nameFieldLS")));
 	}
 
-	@Test(priority = 9, dependsOnMethods = "getAquariumListPage")
+	@Test(priority = 8, dependsOnMethods = "getAquariumListPage")
 	public void directToHomePage() {
 		wait.until(ExpectedConditions.elementToBeClickable((By.id("aquariumBuilder"))));
 		driver.findElement(By.id("aquariumBuilder")).click();
