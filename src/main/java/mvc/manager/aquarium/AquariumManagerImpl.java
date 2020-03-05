@@ -36,8 +36,10 @@ public class AquariumManagerImpl implements AquariumManager {
 	@Override
 	public AquariumView saveAquarium(AquariumView aquarium) {
 		AquariumImpl aqImpl = new AquariumImpl(aquarium);
+		System.out.println("aqImpl in manager " + aqImpl);
 		aquariumService.saveAquarium(aqImpl);
 		AquariumView aqView = new AquariumView(aqImpl);
+		System.out.println("aqView in manager " + aqView);
 		return aqView;
 	}
 

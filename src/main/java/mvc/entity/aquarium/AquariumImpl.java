@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
@@ -31,24 +32,29 @@ public class AquariumImpl implements Aquarium {
 	@Column(name = "NOTES", nullable = true)
 	private String notes;
 
+	@Lob
+	@Column(name = "IMAGE", nullable = true)
+	private byte[] image;
+
 	@Column(name = "DATE", nullable = false)
 	private Date date;
+
+	public AquariumImpl(AquariumView aquariumView) {
+		BeanUtils.copyProperties(aquariumView, this, Aquarium.class);
+	}
 
 	public AquariumImpl() {
 		// default constructor
 	}
 
 	public AquariumImpl(Integer aquariumId, String name, String type, Integer gallon, String notes, Date date) {
+		super();
 		this.aquariumId = aquariumId;
 		this.name = name;
 		this.type = type;
 		this.gallon = gallon;
 		this.notes = notes;
 		this.date = date;
-	}
-
-	public AquariumImpl(AquariumView aquariumView) {
-		BeanUtils.copyProperties(aquariumView, this, Aquarium.class);
 	}
 
 	public Integer getAquariumId() {
@@ -104,4 +110,5 @@ public class AquariumImpl implements Aquarium {
 		return "AquariumImpl [aquariumId=" + aquariumId + ", name=" + name + ", type=" + type + ", gallon=" + gallon
 				+ ", notes=" + notes + ", date=" + date + "]";
 	}
+
 }

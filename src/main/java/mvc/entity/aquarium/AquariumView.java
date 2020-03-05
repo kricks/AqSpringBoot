@@ -14,25 +14,24 @@ public class AquariumView implements Aquarium {
 	private Integer gallon;
 	private String notes;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "CST")
-	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone
-	// = "CST")
 	private Date date;
+
+	public AquariumView(AquariumImpl aquariumImpl) {
+		BeanUtils.copyProperties(aquariumImpl, this, Aquarium.class);
+	}
 
 	public AquariumView() {
 		// default constructor
 	}
 
 	public AquariumView(Integer aquariumId, String name, String type, Integer gallon, String notes, Date date) {
+		super();
 		this.aquariumId = aquariumId;
 		this.name = name;
 		this.type = type;
 		this.gallon = gallon;
 		this.notes = notes;
 		this.date = date;
-	}
-
-	public AquariumView(AquariumImpl aquariumImpl) {
-		BeanUtils.copyProperties(aquariumImpl, this, Aquarium.class);
 	}
 
 	public Integer getAquariumId() {
@@ -85,7 +84,8 @@ public class AquariumView implements Aquarium {
 
 	@Override
 	public String toString() {
-		return "AquariumView [aquariumId=" + aquariumId + ", name=" + name + ", type=" + type + ", gallon=" + gallon
+		return "AquariumImpl [aquariumId=" + aquariumId + ", name=" + name + ", type=" + type + ", gallon=" + gallon
 				+ ", notes=" + notes + ", date=" + date + "]";
 	}
+
 }

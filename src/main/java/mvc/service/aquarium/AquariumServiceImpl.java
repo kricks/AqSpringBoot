@@ -31,6 +31,7 @@ public class AquariumServiceImpl implements AquariumService {
 
 	@Override
 	public AquariumImpl saveAquarium(AquariumImpl aquarium) {
+		System.out.println("service " + aquarium);
 		return aquariumRepo.save(aquarium);
 	}
 
