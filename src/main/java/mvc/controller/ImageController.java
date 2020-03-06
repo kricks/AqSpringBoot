@@ -42,15 +42,6 @@ public class ImageController {
 		return new ResponseEntity<>(images, HttpStatus.OK);
 	}
 
-//	@GetMapping(value = "/{imageId}")
-//	public ResponseEntity<ImageView> getImageById(@PathVariable("imageId") Integer imageId) {
-//		ImageView aqView = imageManager.getImageById(imageId);
-//		if (imageId == null) {
-//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//		}
-//		return new ResponseEntity<>(aqView, HttpStatus.OK);
-//	}
-
 	@GetMapping(value = "/{imageName}")
 	public ResponseEntity<ImageView> getImageByName(@PathVariable("imageName") String imageName) {
 		ImageView aqView = imageManager.getByName(imageName);
@@ -116,16 +107,6 @@ public class ImageController {
 		return outputStream.toByteArray();
 	}
 
-//	@PostMapping(value = "/create")
-//	public ResponseEntity<ImageView> createAquarium(@RequestBody ImageView image) {
-//		Integer imageId = image.getImageId();
-//		if (imageId != null) {
-//			return new ResponseEntity<>(HttpStatus.CONFLICT);
-//		}
-//		ImageView aqView = imageManager.saveImage(image);
-//		return new ResponseEntity<>(aqView, HttpStatus.CREATED);
-//	}
-//
 //	@PutMapping(value = "/update/{aquariumId}")
 //	public ResponseEntity<AquariumView> updateAquarium(@RequestBody AquariumView aquarium) {
 //		if (aquarium.getAquariumId() == null) {
