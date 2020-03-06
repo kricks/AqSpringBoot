@@ -37,4 +37,10 @@ public class ImageServiceImpl implements ImageService {
 		return null;
 	}
 
+	@Override
+	public ImageImpl getByName(String imageName) {
+		System.out.println("service " + imageName);
+		return imageRepo.getByName(imageName);
+	}
+
 }

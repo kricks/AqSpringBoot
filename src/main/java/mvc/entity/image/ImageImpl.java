@@ -42,13 +42,13 @@ public class ImageImpl implements Image {
 		this.image = image;
 	}
 
-//	public Integer getImageId() {
-//		return imageId;
-//	}
-//
-//	public void setImageId(Integer imageId) {
-//		this.imageId = imageId;
-//	}
+	public Integer getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Integer imageId) {
+		this.imageId = imageId;
+	}
 
 	public String getName() {
 		return name;

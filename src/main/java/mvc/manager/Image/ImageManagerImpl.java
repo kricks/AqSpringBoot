@@ -49,4 +49,13 @@ public class ImageManagerImpl implements ImageManager {
 		return null;
 	}
 
+	@Override
+	public ImageView getByName(String imageName) {
+		ImageImpl imp = imageService.getByName(imageName);
+		System.out.println("manager imp" + imp);
+		ImageView imageView = new ImageView(imp);
+		System.out.println("manager view" + imageView);
+		return imageView;
+	}
+
 }

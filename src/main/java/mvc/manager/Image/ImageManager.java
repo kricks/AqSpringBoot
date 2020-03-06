@@ -13,4 +13,6 @@ public interface ImageManager {
 
 	Integer deleteImageById(Integer imageId);
 
+	ImageView getByName(String imageName);
+
 }

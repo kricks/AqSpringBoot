@@ -2,9 +2,9 @@ package mvc.entity.image;
 
 public interface Image {
 
-//	Integer getImageId();
-//
-//	void setImageId(Integer imageId);
+	Integer getImageId();
+
+	void setImageId(Integer imageId);
 
 	String getName();
 
