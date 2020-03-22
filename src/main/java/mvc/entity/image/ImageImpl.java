@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.springframework.beans.BeanUtils;
 
 @Entity
-@Table(name = "Image")
+@Table(name = "Images")
 public class ImageImpl implements Image {
 
 	@Id
