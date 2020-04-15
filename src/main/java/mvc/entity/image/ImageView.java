@@ -1,14 +1,12 @@
 package mvc.entity.image;
 
-import java.util.Arrays;
-
 import org.springframework.beans.BeanUtils;
 
 public class ImageView implements Image {
 	private Integer imageId;
 	private String name;
-	private String type;
-	private byte[] image;
+	private String category;
+	private String ImageURL;
 
 	public ImageView(ImageImpl imageImpl) {
 		BeanUtils.copyProperties(imageImpl, this, Image.class);
@@ -16,12 +14,6 @@ public class ImageView implements Image {
 
 	public ImageView() {
 		// default contstructor
-	}
-
-	public ImageView(String name, String type, byte[] image) {
-		this.name = name;
-		this.type = type;
-		this.image = image;
 	}
 
 	public Integer getImageId() {
@@ -40,24 +32,26 @@ public class ImageView implements Image {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public String getImageURL() {
+		return ImageURL;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setImageURL(String ImageURL) {
+		this.ImageURL = ImageURL;
 	}
 
 	@Override
 	public String toString() {
-		return "ImageImpl [name=" + name + ", type=" + type + ", image=" + Arrays.toString(image) + "]";
+		return "ImageView [imageId=" + imageId + ", name=" + name + ", category=" + category + ", ImageURL=" + ImageURL
+				+ "]";
 	}
+
 }

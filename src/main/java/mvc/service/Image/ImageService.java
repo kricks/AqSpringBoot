@@ -14,5 +14,5 @@ public interface ImageService {
 
 	Integer deleteImageById(Integer imageId);
 
-	ImageImpl getByName(String imageName);
+	List<ImageImpl> getByCategory(String imageName);
 }

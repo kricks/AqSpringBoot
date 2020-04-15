@@ -1,6 +1,5 @@
 package mvc.entity.image;
 
-import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,24 +21,26 @@ public class ImageImpl implements Image {
 	@Column(name = "NAME", nullable = true)
 	private String name;
 
-	@Column(name = "TYPE", nullable = true)
-	private String type;
+	@Column(name = "CATEGORY", nullable = true)
+	private String category;
 
-	@Column(name = "IMAGE", nullable = true)
-	private byte[] image;
+	@Column(name = "IMAGE_URL", nullable = true)
+	private String ImageURL;
 
 	public ImageImpl(ImageView imageView) {
 		BeanUtils.copyProperties(imageView, this, Image.class);
 	}
 
 	public ImageImpl() {
-		// default contstructor
+		// default constructor
 	}
 
-	public ImageImpl(String name, String type, byte[] image) {
+	public ImageImpl(Integer imageId, String name, String category, String ImageURL) {
+		super();
+		this.imageId = imageId;
 		this.name = name;
-		this.type = type;
-		this.image = image;
+		this.category = category;
+		this.ImageURL = ImageURL;
 	}
 
 	public Integer getImageId() {
@@ -58,25 +59,24 @@ public class ImageImpl implements Image {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public String getImageURL() {
+		return ImageURL;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setImageURL(String ImageURL) {
+		this.ImageURL = ImageURL;
 	}
 
-	@Override
 	public String toString() {
-		return "ImageImpl [name=" + name + ", type=" + type + ", image=" + Arrays.toString(image) + "]";
+		return "ImageImpl [imageId=" + imageId + ", name=" + name + ", category=" + category + ", ImageURL=" + ImageURL + "]";
 	}
-
+	
 }

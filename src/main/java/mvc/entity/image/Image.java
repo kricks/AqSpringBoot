@@ -2,20 +2,20 @@ package mvc.entity.image;
 
 public interface Image {
 
-	Integer getImageId();
+	public Integer getImageId();
 
-	void setImageId(Integer imageId);
+	public void setImageId(Integer imageId);
+	
+	public String getName();
+	
+	public void setName(String name);
 
-	String getName();
+	public String getCategory();
 
-	void setName(String name);
+	public void setCategory(String category);
 
-	String getType();
-
-	void setType(String type);
-
-	byte[] getImage();
-
-	void setImage(byte[] image);
-
+	public String getImageURL();
+	
+	public void setImageURL(String ImageURL);
+	
 }

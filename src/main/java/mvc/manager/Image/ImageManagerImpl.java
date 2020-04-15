@@ -25,6 +25,16 @@ public class ImageManagerImpl implements ImageManager {
 		}
 		return imageView;
 	}
+	
+	@Override
+	public List<ImageView> getByCategory(String imageCategory) {
+		List<ImageView> imageView = new ArrayList<>();
+		for (ImageImpl imageImpl : imageService.getByCategory(imageCategory)) {
+			ImageView imView = new ImageView(imageImpl);
+			imageView.add(imView);
+		}
+		return imageView;
+	}
 
 	@Override
 	public ImageView getImageById(Integer imageId) {
@@ -45,17 +55,8 @@ public class ImageManagerImpl implements ImageManager {
 
 	@Override
 	public Integer deleteImageById(Integer imageId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ImageView getByName(String imageName) {
-		ImageImpl imp = imageService.getByName(imageName);
-		System.out.println("manager imp" + imp);
-		ImageView imageView = new ImageView(imp);
-		System.out.println("manager view" + imageView);
-		return imageView;
+		System.out.println("manager " + imageId);
+		return imageService.deleteImageById(imageId);
 	}
 
 }

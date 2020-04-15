@@ -29,18 +29,20 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public ImageImpl saveImage(ImageImpl image) {
+		System.out.println("image in service " + image);
 		return imageRepo.save(image);
 	}
 
 	@Override
 	public Integer deleteImageById(Integer imageId) {
-		return null;
+		System.out.println("service " + imageId);
+		return imageRepo.deleteByImId(imageId);
 	}
 
 	@Override
-	public ImageImpl getByName(String imageName) {
-		System.out.println("service " + imageName);
-		return imageRepo.getByName(imageName);
+	public List<ImageImpl> getByCategory(String imageCategory) {
+		System.out.println("service " + imageCategory);
+		return imageRepo.getByCategory(imageCategory);
 	}
 
 }
