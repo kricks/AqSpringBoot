@@ -13,31 +13,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mvc.entity.observation.ObservationView;
-import mvc.manager.observation.ObservationManager;
+import mvc.entity.log.LogView;
+import mvc.manager.log.LogManager;
 
-@RequestMapping(value = "/observation")
+@RequestMapping(value = "/log")
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin(origins = { "http://localhost:4200" })
-public class ObservationController {
+public class LogController {
 	
 	@Autowired
-	private ObservationManager observationManager;
+	private LogManager logManager;
 	
 	@GetMapping(value = "/all")
-	public ResponseEntity<List<ObservationView>> getAllObservation() {
-	List<ObservationView> observation = observationManager.getAll();
-	if (observation.isEmpty()) {
+	public ResponseEntity<List<LogView>> getAllLog() {
+	List<LogView> log = logManager.getAll();
+	if (log.isEmpty()) {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	return new ResponseEntity<>(observation, HttpStatus.OK);
+	return new ResponseEntity<>(log, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/create")
-	public ResponseEntity<ObservationView> createObservation(@RequestBody ObservationView observation) {
-		ObservationView obView = observationManager.saveAquarium(observation);
-		System.out.println("hello from controller");
+	public ResponseEntity<LogView> createLog(@RequestBody LogView log) {
+		LogView obView = logManager.saveAquarium(log);
 		return new ResponseEntity<>(obView, HttpStatus.CREATED);
 	}
 }

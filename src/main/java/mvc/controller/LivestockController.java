@@ -48,6 +48,7 @@ public class LivestockController {
 
 	@GetMapping(value = "/aqFk/{fkAquariumId}")
 	public List<LivestockView> getLivestockByFkAquariumId(@PathVariable("fkAquariumId") Integer fkAquariumId) {
+		System.out.println("controller " + fkAquariumId);
 		return livestockManager.findLivestockByFkAquariumId(fkAquariumId);
 	}
 
