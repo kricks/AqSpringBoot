@@ -12,7 +12,7 @@ public interface LogManager {
 	
 	LogView getLogById(Integer logId);
 	
-	LogView saveAquarium(LogView log);
+	LogView saveLog(LogView log);
 	
 	Integer deleteLogById(Integer logId);
 	

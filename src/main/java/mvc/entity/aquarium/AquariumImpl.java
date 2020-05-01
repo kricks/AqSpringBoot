@@ -32,10 +32,6 @@ public class AquariumImpl implements Aquarium {
 	@Column(name = "NOTES", nullable = true)
 	private String notes;
 
-	@Lob
-	@Column(name = "IMAGE", nullable = true)
-	private byte[] image;
-
 	@Column(name = "DATE", nullable = false)
 	private Date date;
 

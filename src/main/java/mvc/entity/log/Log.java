@@ -4,23 +4,24 @@ import java.util.Date;
 
 public interface Log {
 
-	public Integer getLogId();
+	Integer getLogId();
 
-	public void setLogId(Integer logId);
+	void setLogId(Integer logId);
 
-	public String getTitle();
+	String getTitle();
 
-	public void setTitle(String title);
-	public String getLog();
-
-	public void setLog(String log);
-
-	public Date getDate();
-
-	public void setDate(Date date);
+	void setTitle(String title);
 	
-	public Integer getLogFk();
+	String getLog();
 
-	public void setLogFk(Integer logFk);
+	void setLog(String log);
+
+	Date getDate();
+
+	void setDate(Date date);
+	
+	Integer getLogFk();
+
+	void setLogFk(Integer logFk);
 	
 }

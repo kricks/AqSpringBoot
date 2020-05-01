@@ -22,7 +22,7 @@ public interface Livestock {
 
 	void setNotes(String notes);
 
-//	Integer getFkAquariumId();
-//
-//	void setFkAquariumId(Integer fkAquariumId);
+	Integer getFkAquariumId();
+
+	void setFkAquariumId(Integer fkAquariumId);
 }

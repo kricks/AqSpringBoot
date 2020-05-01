@@ -44,7 +44,7 @@ public class LogManagerImpl implements LogManager{
 	}
 
 	@Override
-	public LogView saveAquarium(LogView log) {
+	public LogView saveLog(LogView log) {
 		LogImpl logImpl = new LogImpl(log);
 		logService.saveLog(logImpl);
 		LogView logView = new LogView(logImpl);

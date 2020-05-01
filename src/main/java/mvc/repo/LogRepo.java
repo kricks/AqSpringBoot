@@ -11,11 +11,11 @@ import mvc.entity.log.LogImpl;
 
 public interface LogRepo extends JpaRepository<LogImpl, Integer> {
 
-	@Query(value = "SELECT * FROM log lo WHERE lo.log_fk = :logFk", nativeQuery = true)
+	@Query(value = "SELECT * FROM logs lo WHERE lo.log_fk = :logFk", nativeQuery = true)
 	List<LogImpl> findByLogFk(@Param("logFk") Integer logFk);
 
 	@Modifying
-	@Query(value = "DELETE FROM log lo WHERE lo.log_id = :logId", nativeQuery = true)
+	@Query(value = "DELETE FROM logs lo WHERE lo.log_id = :logId", nativeQuery = true)
 	Integer deleteLogById(@Param("logId") Integer logId);
 	
 }
