@@ -39,8 +39,8 @@ public class ParameterController {
 	return new ResponseEntity<>(parameter, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/aqFk/{aqFk}")
-	public List<ParametersView> getParamByAqFk(@PathVariable("aqFk") Integer aqFk) {
+	@GetMapping(value = "/aqFk/{parameterFk}")
+	public List<ParametersView> getParamByAqFk(@PathVariable("parameterFk") Integer aqFk) {
 		return parameterManager.getParamByAqFk(aqFk);
 	}
 	
