@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ParametersView implements Parameters{
 
 	private Integer parameterId;
-	private Integer aqFk;
+	private Integer paramFk;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "CST")
 	private Date date;
 	private Double ph;
@@ -27,12 +27,12 @@ public class ParametersView implements Parameters{
 		//default constructor
 	}
 
-	public ParametersView(Integer parameterId, Integer aqFk, Date date, Double ph, Double nitrate, Double nitrite,
+	public ParametersView(Integer parameterId, Integer paramFk, Date date, Double ph, Double nitrate, Double nitrite,
 			Double ammonia, Double phosphate, Double magnesium, Double calcium, Double potasium, Double iodine,
 			Double alkalinity) {
 		super();
 		this.parameterId = parameterId;
-		this.aqFk = aqFk;
+		this.paramFk = paramFk;
 		this.date = date;
 		this.ph = ph;
 		this.nitrate = nitrate;
@@ -59,12 +59,12 @@ public class ParametersView implements Parameters{
 		this.parameterId = parameterId;
 	}
 
-	public Integer getAqFk() {
-		return aqFk;
+	public Integer getParamFk() {
+		return paramFk;
 	}
 
-	public void setAqFk(Integer aqFk) {
-		this.aqFk = aqFk;
+	public void setParamFk(Integer paramFk) {
+		this.paramFk = paramFk;
 	}
 
 	public Date getDate() {
@@ -157,7 +157,7 @@ public class ParametersView implements Parameters{
 
 	@Override
 	public String toString() {
-		return "ParametersView [parameterId=" + parameterId + ", aqFk=" + aqFk + ", date=" + date + ", ph=" + ph
+		return "ParametersView [parameterId=" + parameterId + ", paramFk=" + paramFk + ", date=" + date + ", ph=" + ph
 				+ ", nitrate=" + nitrate + ", nitrite=" + nitrite + ", ammonia=" + ammonia + ", phosphate=" + phosphate
 				+ ", magnesium=" + magnesium + ", calcium=" + calcium + ", potasium=" + potasium + ", iodine=" + iodine
 				+ ", alkalinity=" + alkalinity + "]";

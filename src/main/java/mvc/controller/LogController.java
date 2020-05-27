@@ -38,6 +38,11 @@ public class LogController {
 	return new ResponseEntity<>(log, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/logFk/{logFk}")
+	public List<LogView> getlogFk(@PathVariable("logFk") Integer logFk) {
+		return logManager.getByLogFk(logFk);
+	}
+	
 	@PostMapping(value = "/create")
 	public ResponseEntity<LogView> createLog(@RequestBody LogView log) {
 		LogView logView = logManager.saveLog(log);

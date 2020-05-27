@@ -18,8 +18,8 @@ public class ParametersImpl implements Parameters {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer parameterId;
 	
-	@Column(name = "AQFK_ID", nullable = true)
-	private Integer aqFk;
+	@Column(name = "PARAMFK_ID", nullable = true)
+	private Integer paramFk;
 	
 	@Column(name = "DATE", nullable = true)
 	private Date date;
@@ -27,7 +27,7 @@ public class ParametersImpl implements Parameters {
 	@Column(name = "PH", nullable = true)
 	private Double ph;
 	
-	@Column(name = "NIRATE", nullable = true)
+	@Column(name = "NITRATE", nullable = true)
 	private Double nitrate;
 	
 	@Column(name = "NITRITE", nullable = true)
@@ -58,11 +58,11 @@ public class ParametersImpl implements Parameters {
 		// default constructor
 	}
 	
-	public ParametersImpl(Integer parameterId, Integer aqFk, Date date, Double ph, Double nitrate, Double nitrite,
+	public ParametersImpl(Integer parameterId, Integer paramFk, Date date, Double ph, Double nitrate, Double nitrite,
 			Double ammonia, Double phosphate, Double magnesium, Double calcium, Double potasium, Double iodine,
 			Double alkalinity) {
 		this.parameterId = parameterId;
-		this.aqFk = aqFk;
+		this.paramFk = paramFk;
 		this.date = date;
 		this.ph = ph;
 		this.nitrate = nitrate;
@@ -154,17 +154,17 @@ public class ParametersImpl implements Parameters {
 		this.alkalinity = alkalinity;
 	}
 
-	public Integer getAqFk() {
-		return aqFk;
+	public Integer getParamFk() {
+		return paramFk;
 	}
 
-	public void setAqFk(Integer aqFk) {
-		this.aqFk = aqFk;
+	public void setParamFk(Integer paramFk) {
+		this.paramFk = paramFk;
 	}
 
 	@Override
 	public String toString() {
-		return "ParametersImpl [parameterId=" + parameterId + ", aqFk=" + aqFk + ", date=" + date + ", ph=" + ph
+		return "ParametersImpl [parameterId=" + parameterId + ", paramFk=" + paramFk + ", date=" + date + ", ph=" + ph
 				+ ", nitrate=" + nitrate + ", nitrite=" + nitrite + ", ammonia=" + ammonia + ", phosphate=" + phosphate
 				+ ", magnesium=" + magnesium + ", calcium=" + calcium + ", potasium=" + potasium + ", iodine=" + iodine
 				+ ", alkalinity=" + alkalinity + "]";

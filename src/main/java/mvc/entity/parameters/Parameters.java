@@ -7,8 +7,8 @@ public interface Parameters {
 	Integer getParameterId();
 	void setParameterId(Integer parameterId);
 	
-	Integer getAqFk();
-	void setAqFk(Integer aqFk);
+	Integer getParamFk();
+	void setParamFk(Integer paramFk);
 	
 	Date getDate();
 	void setDate(Date date);

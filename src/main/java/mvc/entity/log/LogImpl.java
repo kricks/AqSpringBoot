@@ -24,7 +24,7 @@ public class LogImpl implements Log {
 	@Column(name = "TITLE", nullable = true)
 	private String title;
 	
-	@Column(name = "OBSERVATION", nullable = true)
+	@Column(name = "LOG", nullable = true)
 	private String log;
 	
 	@Column(name = "DATE", nullable = true)

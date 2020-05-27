@@ -11,8 +11,8 @@ import mvc.entity.parameters.ParametersImpl;
 
 public interface ParametersRepo extends JpaRepository<ParametersImpl, Integer> {
 
-	@Query(value = "SELECT * FROM parameter par WHERE par.aqFk_id = :aqFk", nativeQuery = true)
-	List<ParametersImpl> findByAqFk(@Param("aqFk") Integer aqFk);
+	@Query(value = "SELECT * FROM parameter par WHERE par.paramFk_id = :paramFk", nativeQuery = true)
+	List<ParametersImpl> findByAqFk(@Param("paramFk") Integer paramFk);
 
 	@Modifying
 	@Query(value = "DELETE FROM parameter par WHERE par.parameter_id = :parameterId", nativeQuery = true)

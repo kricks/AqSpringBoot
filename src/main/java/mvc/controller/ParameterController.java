@@ -32,16 +32,15 @@ public class ParameterController {
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<ParametersView>> getAllLog() {
 	List<ParametersView> parameter = parameterManager.getAll();
-	System.out.println("hello aall");
 	if (parameter.isEmpty()) {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	return new ResponseEntity<>(parameter, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/aqFk/{parameterFk}")
-	public List<ParametersView> getParamByAqFk(@PathVariable("parameterFk") Integer aqFk) {
-		return parameterManager.getParamByAqFk(aqFk);
+	@GetMapping(value = "/parameterFk/{parameterFk}")
+	public List<ParametersView> getParamByAqFk(@PathVariable("parameterFk") Integer parameterFk) {
+		return parameterManager.getParamByAqFk(parameterFk);
 	}
 	
 	@GetMapping(value = "/{parameterId}")
@@ -51,8 +50,6 @@ public class ParameterController {
 	
 	@PostMapping(value = "/create")
 	public ResponseEntity<ParametersView> createLog(@RequestBody ParametersView parameter) {
-		System.out.println("create param " + parameter);
-		System.out.println("hello create");
 		ParametersView pView = parameterManager.saveParameter(parameter);
 		return new ResponseEntity<>(pView, HttpStatus.CREATED);
 	}
