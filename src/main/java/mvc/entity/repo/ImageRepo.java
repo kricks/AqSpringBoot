@@ -1,4 +1,4 @@
-package mvc.repo;
+package mvc.entity.repo;
 
 import java.util.List;
 

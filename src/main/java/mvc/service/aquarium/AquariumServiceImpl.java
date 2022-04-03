@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mvc.entity.aquarium.AquariumImpl;
-import mvc.repo.AquariumRepo;
+import mvc.entity.repo.AquariumRepo;
 
 @Service
 @Transactional

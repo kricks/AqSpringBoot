@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mvc.entity.log.LogImpl;
-import mvc.repo.LogRepo;
+import mvc.entity.repo.LogRepo;
 
 @Service
 @Transactional

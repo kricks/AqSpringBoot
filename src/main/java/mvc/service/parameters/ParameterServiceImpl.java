@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mvc.entity.parameters.ParametersImpl;
-import mvc.repo.ParametersRepo;
+import mvc.entity.repo.ParametersRepo;
 
 @Service
 @Transactional
